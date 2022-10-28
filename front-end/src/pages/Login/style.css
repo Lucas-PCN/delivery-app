@@ -1,0 +1,126 @@
+.login-container {
+  align-items: center;
+  background: #f0f0f7;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.login-content {
+  align-items: center;
+  background: white;
+  border: 1px solid rgb(236, 232, 232);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  height: 550px;
+  justify-content: center;
+  width: 500px;
+}
+
+.info {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.info img {
+  margin-top: 55px;
+  width: 220px;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 40px;
+  width: 100%;
+}
+
+.form-login label {
+  align-items: center;
+  color: #32264d;
+  display: flex;
+  font-weight: 700;
+  gap: 10px;
+  width: 100%;
+}
+
+.form-login label p {
+  background: rgb(235, 226, 226);
+  border-radius: 4px;
+  padding: 10px;
+  width: 80px;
+}
+
+.form-login label input {
+  border: 1px solid #e6e6f0;
+  border-radius: 4px;
+  height: 40px;
+  outline: none;
+  padding-left: 15px;
+  width: 100%;
+}
+
+.btn-login {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 25px;
+  width: 100%;
+}
+
+.btn-login button {
+  cursor: pointer;
+  height: 45px;
+  width: 100%;
+}
+
+.btn-login button:first-child {
+  background: #d30404ad;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.btn-login button:last-child {
+  background: none;
+  border: none;
+  font-weight: 600;
+}
+
+.btn-login button:first-child:hover {
+  background: rgb(248, 75, 75);
+}
+
+.btn-login button:last-child:hover {
+  color: rgb(40, 119, 221);
+}
+
+.span-error {
+  align-items: center;
+  background: rgba(230, 53, 53, 0.712);
+  border: 2px solid rgb(241, 128, 128);
+  border-radius: 4px;
+  color: white;
+  display: flex;
+  height: 45px;
+  justify-content: center;
+  margin-top: 15px;
+  padding-left: 45px;
+  width: 500px;
+}
+
+.span-error-disable {
+  display: none;
+}
+
+.span-error h4 {
+  align-items: center;
+  width: 100%;
+}
