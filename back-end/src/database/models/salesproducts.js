@@ -1,12 +1,9 @@
-const sales = require('./sales');
-const products = require('./products');
-
 module.exports = (sequelize, DataTypes) => {
   const SalesProducts = sequelize.define('salesProducts', {
     saleId: {
       type: DataTypes.INTEGER,
       references: {
-        model: sales,
+        model: 'sales',
         key: 'id',
       },
       onUpdate: 'CASCADE',
@@ -16,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     productId: {
       type: DataTypes.INTEGER, 
       references: {
-        model: products,
+        model: 'products',
         key: 'id',
       },
       onUpdate: 'CASCADE',
@@ -25,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     quantity: DataTypes.INTEGER,
   },{
-    timestamp: false,
+    timestamps: false,
     tableName: 'salesProducts',
     underscored: true
   });
