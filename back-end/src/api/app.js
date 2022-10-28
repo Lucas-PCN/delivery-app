@@ -1,9 +1,13 @@
 const express = require('express');
-const loginController = require('../controllers/loginController');
 
 const app = express();
+const { error } = require('../middlewares');
+const route = require('./routes');
 
 app.use(express.json());
-app.post('/login', loginController.login);
+// app.get('/teste', autenticaMiddleware, (req, res) => res.send('ok'));
+app.use(route);
+
+app.use(error);
 
 module.exports = app;
