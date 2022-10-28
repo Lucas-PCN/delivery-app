@@ -1,16 +1,14 @@
-const user = require('./user');
-
 module.exports = (sequelize, DataTypes) => {
   const Sales = sequelize.define('sales', {
-    // id: {
-    //   type: DataTypes.INTEGER,
-    //   autoIncrement: true,
-    //   primaryKey: true,
-    // },
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     userId: {
       type: DataTypes.INTEGER,
       references: {
-        model: user,
+        model: 'users',
         key: 'id'
       },
       field: 'user_id'
@@ -18,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     sellerId: {
       type: DataTypes.INTEGER,
       references: {
-        model: user,
+        model: 'users',
         key: 'id'
       },
       field: 'seller_id'
@@ -36,31 +34,31 @@ module.exports = (sequelize, DataTypes) => {
       field: 'delivery_number'
     },
     saleDate: {
-      type: DataTypes.DATETIME,
+      type: DataTypes.DATE,
       field: 'sale_date'
     },
     status: {
       type: DataTypes.STRING
     },
   },{
-    timestamp: false,
+    timestamps: false,
     tableName: 'sales',
     underscored: true
   });
 
   Sales.associate = (models) => {
-    models.sales.belongsTo(models.user, {
+    models.sales.belongsTo(models.users, {
       foreignKey: 'user_id',
       as: 'users'
     }),
-    models.sales.belongsTo(models.user, {
+    models.sales.belongsTo(models.users, {
       foreignKey: 'seller_id',
       as: 'seller'
     })
-    models.sales.hasMany(models.salesProducts, {
-      foreignKey: 'sale_id',
-      as: 'saleId'
-    })
+    // models.sales.hasMany(models.salesProducts, {
+    //   foreignKey: 'sale_id',
+    //   as: 'saleId'
+    // })
   }
 
   return Sales;
