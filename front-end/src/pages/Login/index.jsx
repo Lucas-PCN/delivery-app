@@ -3,18 +3,20 @@ import { useHistory } from 'react-router-dom';
 import LogoImage from '../../images/logo.png';
 import { AuthContext } from '../../providers/Auth';
 import './style.css';
+import axios from 'axios';
 
 function Login() {
   const history = useHistory();
   const { login, setLogin, error } = useContext(AuthContext);
 
-  function handleClick() {
+  function handleRegister() {
     history.push('/register');
   }
 
-  // function handleSubmit() {
-
-  // }
+  function handleSubmit() {
+    const response = axios.post('http://localhost:3001/login', { email: login.email, password: login.password }).then((res) => console.log(res)).catch((error) => console.log(error.message))
+    console.log(response);
+  }
 
   return (
     <div className="login-container">
@@ -53,7 +55,7 @@ function Login() {
             </button>
             <button
               type="button"
-              onClick={ () => handleClick() }
+              onClick={ () => handleRegister() }
               data-testid="common_login__button-register"
             >
               Ainda não tenho conta
