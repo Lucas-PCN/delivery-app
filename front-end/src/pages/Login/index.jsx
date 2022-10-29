@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import LogoImage from '../../images/logo.png';
-
+import { AuthContext } from '../../providers/Auth';
 import './style.css';
 
 function Login() {
   const history = useHistory();
-  const [errorLogin] = useState(false);
+  const { login, setLogin, error } = useContext(AuthContext);
 
   function handleClick() {
     history.push('/register');
   }
+
+  // function handleSubmit() {
+
+  // }
 
   return (
     <div className="login-container">
@@ -25,6 +29,7 @@ function Login() {
               name="email"
               type="text"
               placeholder="Email"
+              onChange={ (e) => setLogin({ ...login, email: e.target.value }) }
               data-testid="common_login__input-email"
             />
           </label>
@@ -32,14 +37,16 @@ function Login() {
             <p>Senha</p>
             <input
               name="senha"
-              type="password"
+              type="text"
               placeholder="Senha"
+              onChange={ (e) => setLogin({ ...login, password: e.target.value }) }
               data-testid="common_login__input-password"
             />
           </label>
           <div className="btn-login">
             <button
               type="button"
+              onClick={ () => handleSubmit() }
               data-testid="common_login__button-login"
             >
               Entrar
@@ -56,9 +63,7 @@ function Login() {
       </div>
       <div
         data-testid="common_login__element-invalid-email"
-        className={
-          (errorLogin === false) ? 'span-error-disable' : 'span-error'
-        }
+        className={ (error === false) ? 'span-error-disable' : 'span-error' }
       >
         <h4>Email or senha inválidos</h4>
       </div>
