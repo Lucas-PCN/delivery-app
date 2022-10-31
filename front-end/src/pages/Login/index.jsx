@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import LogoImage from '../../images/logo.png';
 import { AuthContext } from '../../providers/Auth';
 import './style.css';
-import axios from 'axios';
 
 function Login() {
   const history = useHistory();
@@ -14,7 +14,7 @@ function Login() {
   }
 
   function handleSubmit() {
-    const response = axios.post('http://localhost:3001/login', { email: login.email, password: login.password }).then((res) => console.log(res)).catch((error) => console.log(error.message))
+    const response = axios.post('http://localhost:3001/login', { email: login.email, password: login.password }).then((res) => console.log(res)).catch((err) => console.log(err.message));
     console.log(response);
   }
 
