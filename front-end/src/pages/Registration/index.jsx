@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import './style.css';
+import { AuthContext } from '../../providers/Auth';
 
 function Registration() {
   const history = useHistory();
   const [errorRegistration, setErrorRegistration] = useState(false);
-  const [register, setRegister] = useState({
-    name: '',
-    email: '',
-    password: '',
-    role: 'customer',
-  });
+  const { register, setRegister } = useContext(AuthContext);
 
   const validationRegister = () => {
     const MIN_PASSWORD = 5;
@@ -25,6 +21,7 @@ function Registration() {
   };
 
   const handleClick = () => {
+    // implementar a rota do back e colocar o erro retornado da maneira correta
     axios
       .post('https://localhost:3001/users', register)
       .then((res) => console.log(res))
