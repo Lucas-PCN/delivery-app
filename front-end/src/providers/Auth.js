@@ -8,6 +8,12 @@ export function AuthProvider({ children }) {
     email: '',
     password: '',
   });
+  const [register, setRegister] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'customer',
+  });
 
   const [error, setErro] = useState(false);
 
@@ -16,7 +22,9 @@ export function AuthProvider({ children }) {
     error,
     setLogin,
     setErro,
-  }), [login, error]);
+    register,
+    setRegister,
+  }), [login, error, register]);
 
   console.log(login);
   return (

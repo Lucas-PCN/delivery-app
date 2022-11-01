@@ -7,12 +7,7 @@ import './style.css';
 function Registration() {
   const history = useHistory();
   const [errorRegistration, setErrorRegistration] = useState(false);
-  const [register, setRegister] = useState({
-    name: '',
-    email: '',
-    password: '',
-    role: 'customer',
-  });
+  const { register, setRegister } = useContext(AuthContext);
 
   const validationRegister = () => {
     const MIN_PASSWORD = 5;
@@ -26,7 +21,7 @@ function Registration() {
 
   const handleClick = () => {
     axios
-      .post('https://localhost:3001/users', register)
+      .post('https://localhost:3001/register', register)
       .then((res) => console.log(res))
       .catch((error) => setErrorRegistration(error.message));
 
