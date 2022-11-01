@@ -20,8 +20,8 @@ function Registration() {
     return !(passwordCheck && emailCheck && fullNameCheck);
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
+  const handleClick = () => {
+    // e.preventDefault();
     axios
       .post('http://localhost:3001/register', {
         name: register.name,
@@ -35,7 +35,7 @@ function Registration() {
       .catch((err) => {
         setErro(true);
         setErrorRegistration(err.message);
-        document.location.reload();
+        // document.location.reload();
       });
   };
 
