@@ -10,6 +10,7 @@ export function AuthProvider({ children }) {
     email: '',
     password: '',
   });
+
   const [register, setRegister] = useState({
     name: '',
     email: '',
@@ -28,17 +29,20 @@ export function AuthProvider({ children }) {
     token,
     errorMessage,
     buttonDisable,
+    register,
     setLogin,
     setErro,
     setToken,
     setErrorMessage,
     setButtonDisable,
+    setRegister,
   }), [
     login,
     error,
     token,
     errorMessage,
     buttonDisable,
+    register,
   ]);
 
   useEffect(() => {
