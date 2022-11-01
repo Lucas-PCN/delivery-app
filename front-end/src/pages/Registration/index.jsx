@@ -20,7 +20,7 @@ function Registration() {
     return !(passwordCheck && emailCheck && fullNameCheck);
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
     e.preventDefault();
     axios
       .post('http://localhost:3001/register', {
@@ -96,10 +96,13 @@ function Registration() {
           </div>
         </form>
         <div
-          data-testid="common_login__element-invalid-register"
           className={ error ? 'span-error' : 'span-error-disable' }
         >
-          <h4>{errorRegistration}</h4>
+          <h4
+            data-testid="common_login__element-invalid-register"
+          >
+            {errorRegistration}
+          </h4>
         </div>
       </div>
     </div>
