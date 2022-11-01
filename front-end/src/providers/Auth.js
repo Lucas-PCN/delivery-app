@@ -10,6 +10,12 @@ export function AuthProvider({ children }) {
     email: '',
     password: '',
   });
+  const [register, setRegister] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'customer',
+  });
 
   const [token, setToken] = useState('');
   const [error, setErro] = useState(false);
