@@ -21,7 +21,7 @@ function Registration() {
   };
 
   const handleClick = () => {
-    // e.preventDefault();
+    e.preventDefault();
     axios
       .post('http://localhost:3001/register', {
         name: register.name,
