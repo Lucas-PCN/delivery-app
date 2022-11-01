@@ -14,7 +14,6 @@ export function AuthProvider({ children }) {
     name: '',
     email: '',
     password: '',
-    role: 'customer',
   });
 
   const [token, setToken] = useState('');
