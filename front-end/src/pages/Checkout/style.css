@@ -115,7 +115,9 @@ select {
   width: 100%;
 }
 
-input[ type = 'text' ], input[ type = 'number' ] {
+/* input[ type = 'text' ], input[ type = 'number' ] */
+
+.delivery-content form input {
   border: 1px solid darkcyan;
   border-radius: 4px;
   height: 40px;
