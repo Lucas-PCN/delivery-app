@@ -8,8 +8,6 @@ const createUser = async ({ name, email, password }) => {
       { email },
     ],
   } });
-  // console.log(findUser);
-
   if (findUser) {
     const erro = { status: 409, message: 'user aleready registered' };
     throw erro;
