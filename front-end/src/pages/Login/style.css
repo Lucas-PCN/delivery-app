@@ -49,11 +49,13 @@
   width: 100%;
 }
 
-.form-login label p {
+.form-login label img {
   background: rgb(235, 226, 226);
+  border: 1px solid rgb(211, 204, 204);
   border-radius: 4px;
-  padding: 10px;
-  width: 80px;
+  height: 40px;
+  padding: 8px;
+  width: 50px;
 }
 
 .form-login label input {
