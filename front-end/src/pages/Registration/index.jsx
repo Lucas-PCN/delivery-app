@@ -96,7 +96,7 @@ function Registration() {
           </div>
         </form>
         <div
-          data-testid="common_login__element-invalid-email"
+          data-testid="common_login__element-invalid-register"
           className={ error ? 'span-error' : 'span-error-disable' }
         >
           <h4>{errorRegistration}</h4>
