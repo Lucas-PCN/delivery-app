@@ -35,7 +35,7 @@ function Registration() {
       .catch((err) => {
         setErro(true);
         setErrorRegistration(err.message);
-        document.location.reload();
+        // document.location.reload();
       });
   };
 
