@@ -115,7 +115,7 @@ select {
   width: 100%;
 }
 
-input[type="text"], input[type="number"] {
+input[ type = 'text' ], input[ type = 'number' ] {
   border: 1px solid darkcyan;
   border-radius: 4px;
   height: 40px;

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-import './style.css';
+// import './style.css';
 import { AuthContext } from '../../providers/Auth';
 
 function Registration() {
