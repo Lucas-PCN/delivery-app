@@ -4,7 +4,7 @@ const register = async (req, res, next) => {
   try {
     const result = await registerService.createUser(req.body);
 
-    return res.status(200).json(result);
+    return res.status(201).json(result);
   } catch (error) {
     next(error);
   }
