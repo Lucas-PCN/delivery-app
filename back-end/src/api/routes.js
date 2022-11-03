@@ -40,6 +40,12 @@ route.patch('/orders/:id', saleStatus);
 // rota que o vendedor tem acesso
 route.get('/orders', autenticaMiddleware, getSales);
 
+// rota para o admin cadastrar novos usuários
+route.post('/management', validateRegister, registerController.createUser);
+route.get('/management', registerController.getAll);
+route.delete('/management/:id', registerController.deleteUsers);
+route.patch('/management/:id', registerController.updateUsers);
+
 // A rota abaixo é um exemplo de como ir para outras rotas autenticado
 // route.get('/teste', autenticaMiddleware, (req, res, _next) => res.send('O'));
 
