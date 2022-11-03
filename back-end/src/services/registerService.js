@@ -4,7 +4,7 @@ const md5 = require('md5');
 const { users } = require('../database/models');
 const { generateToken } = require('../utils/jwt');
 
-const registered = { status: 409, message: 'user already registered' };
+const registered = { status: 409, message: 'Usuário já está registrado!' };
 const createUser = async ({ name, email, password }) => {
   const pass = md5(password);
   const findUser = await users.findOne({ where: {

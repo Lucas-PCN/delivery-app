@@ -5,7 +5,7 @@ const registerValidation = Joi.object({
   email: Joi.string().required().email(),
   password: Joi.string().required().min(6),
 }).messages({
-  'any.required': '{{#label}} is required',
+  'any.required': '{{#label}} é obrigatório',
 });
 
 const validateRegister = (req, _res, next) => {

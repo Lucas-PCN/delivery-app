@@ -15,4 +15,15 @@ const createProducts = async (req, res, next) => {
   }
 };
 
-module.exports = { getProducts, createProducts };
+const updateById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    await products.updateProducts(id, req.body);
+  return res.status(200).json({ message: 'Produto atualizado!' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getProducts, createProducts, updateById };
