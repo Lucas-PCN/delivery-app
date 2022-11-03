@@ -1,0 +1,9 @@
+.header-container {
+  background: red;
+  height: 75px;
+  width: 100%;
+}
+
+.header-content {
+  max-width: 1220px;
+}
