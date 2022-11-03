@@ -5,6 +5,7 @@ const {
   getSalesByPk, 
   getSales, 
   salesCustomer,
+  saleStatus,
 } = require('../controllers/salesController');
 
 const loginController = require('../controllers/loginController');
@@ -34,6 +35,7 @@ route.post('/checkout', autenticaMiddleware, createCheckout);
 
 // rota de detalhes do pedido, todos tem acesso.
 route.get('/orders/:id', autenticaMiddleware, getSalesByPk);
+route.patch('/orders/:id', saleStatus);
 
 // rota que o vendedor tem acesso
 route.get('/orders', autenticaMiddleware, getSales);
