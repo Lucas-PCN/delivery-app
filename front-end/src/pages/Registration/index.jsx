@@ -8,7 +8,9 @@ import { AuthContext } from '../../providers/Auth';
 function Registration() {
   const history = useHistory();
   const [errorRegistration, setErrorRegistration] = useState(false);
-  const { register, setRegister, setErro, error } = useContext(AuthContext);
+  const {
+    register,
+    setRegister, setErro, error, setToken } = useContext(AuthContext);
 
   const validationRegister = () => {
     const MIN_PASSWORD = 5;
@@ -20,6 +22,10 @@ function Registration() {
     return !(passwordCheck && emailCheck && fullNameCheck);
   };
 
+  // useEffect(() => {
+
+  // }, [token]);
+
   const handleClick = (e) => {
     e.preventDefault();
     axios
@@ -30,6 +36,7 @@ function Registration() {
       })
       .then((res) => {
         console.log(res);
+        setToken(res.data.token);
         history.push('/customer/products');
       })
       .catch((err) => {
