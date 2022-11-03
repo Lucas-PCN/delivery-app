@@ -2,8 +2,8 @@ const md5 = require('md5');
 const { users } = require('../database/models');
 const { generateToken } = require('../utils/jwt');
 
-const missingFields = { status: 404, message: 'Some required fields are missing' };
-const loginIncorreto = { status: 404, message: 'Email ou senha incorreta' };
+const missingFields = { status: 404, message: 'Todos os campos obrigatórios!' };
+const loginIncorreto = { status: 404, message: 'E-mail ou senha incorreta!' };
 
 const loginUsers = async ({ email, password }) => {
   if (!email || !password) throw missingFields;
