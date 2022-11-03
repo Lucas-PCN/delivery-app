@@ -2,15 +2,16 @@ const { sales, users, salesProducts, products } = require('../database/models');
 
 const timeElapsed = Date.now();
 const today = new Date(timeElapsed);
-const UserNotFound = { status: 404, message: 'Cliente não encontrado!' };
-const SellerNotFound = { status: 404, message: 'Funcionário não encontrado!' };
+const userNotFound = { status: 404, message: 'Cliente não encontrado!' };
+const sellerNotFound = { status: 404, message: 'Funcionário não encontrado!' };
 const productNotFound = { status: 404, message: 'Produto não encontrado!' };
+const saleNotFound = { status: 404, message: 'Venda não encontrada!' };
 
 const validations = async (objs) => {
   const findUser = await users.findOne({ where: { id: objs.userId } });
-  if (!findUser) throw UserNotFound;
+  if (!findUser) throw userNotFound;
   const findSeller = await users.findOne({ where: { id: objs.sellerId } });
-  if (!findSeller) throw SellerNotFound;
+  if (!findSeller) throw sellerNotFound;
 };
 
 const validationPro = async (ob) => {
@@ -33,6 +34,7 @@ const getSalesProducts = async () => {
 // vendas do usuario logado
 const salesFromCustomer = async (id) => {
   const rows = await sales.findAll({ where: { userId: id } });
+
   return rows; 
 };
 
@@ -43,17 +45,9 @@ const getSalePk = async (id) => {
       include: [{ model: products, as: 'products' },       
       { model: users, as: 'users' }],  
     });
+
   return rows; 
 };
-
-// const saleDetails = async (id) => {
-//   const order = await sales.findByPk(id, 
-//     {
-//       include: [{ model: products, as: 'products' },       
-//       { model: users, as: 'users' }],  
-//     });
-//   return order; 
-// };
 
 // o cliente faz o pedido
 const cartCheckout = async (obj) => {
@@ -64,15 +58,25 @@ const cartCheckout = async (obj) => {
     ...obj,
     saleDate: today.toISOString(),
     status: 'Pendente' });
-   obj.products.forEach(async (product) => {
-      await salesProducts.create(
-        { saleId: result.id, 
-          productId: product.productId, 
-          quantity: product.quantity },
-          );
+
+  obj.products.forEach(async (product) => {
+    await salesProducts.create({
+      saleId: result.id, 
+      productId: product.productId, 
+      quantity: product.quantity, 
     });
+  });
     
   return result;
 };
 
-module.exports = { cartCheckout, getSalesProducts, getSalePk, salesFromCustomer };
+const updateStatus = async (id, status) => {
+  const sale = await sales.findAll({ where: { id } });
+  if (!sale || sale.length === 0) throw saleNotFound;
+  await sales.update({ status }, { where: { id } });
+
+  const saleUpdated = await sales.findAll({ where: { id } });
+  return saleUpdated;
+};
+
+module.exports = { cartCheckout, getSalesProducts, getSalePk, salesFromCustomer, updateStatus };
