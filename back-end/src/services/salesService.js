@@ -40,6 +40,8 @@ const salesFromCustomer = async (id) => {
 
 // o vendedor consegue ver os detalhes da venda.
 const getSalePk = async (id) => {
+  const findSale = await sales.findOne({ where: { id } });
+  if (!findSale) throw saleNotFound;
   const rows = await sales.findByPk(id, 
     {
       include: [{ model: products, as: 'products' },       
@@ -70,7 +72,7 @@ const cartCheckout = async (obj) => {
   return result;
 };
 
-const updateStatus = async (id, status) => {
+const upStatus = async (id, status) => {
   const sale = await sales.findAll({ where: { id } });
   if (!sale || sale.length === 0) throw saleNotFound;
   await sales.update({ status }, { where: { id } });
@@ -79,4 +81,4 @@ const updateStatus = async (id, status) => {
   return saleUpdated;
 };
 
-module.exports = { cartCheckout, getSalesProducts, getSalePk, salesFromCustomer, updateStatus };
+module.exports = { cartCheckout, getSalesProducts, getSalePk, salesFromCustomer, upStatus };

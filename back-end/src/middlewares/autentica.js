@@ -1,6 +1,6 @@
 const { verificaToken } = require('../utils/jwt');
 
-const autenticaMiddleware = (req, res, next) => {
+const autenticaToken = (req, res, next) => {
 const token = req.headers.authorization;
   const user = verificaToken(token);
   if (!user) {
@@ -11,4 +11,4 @@ const token = req.headers.authorization;
   next();
 };
 
-module.exports = autenticaMiddleware;
+module.exports = autenticaToken;

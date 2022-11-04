@@ -5,7 +5,7 @@ const { generateToken } = require('../utils/jwt');
 const missingFields = { status: 404, message: 'Todos os campos obrigatórios!' };
 const loginIncorreto = { status: 404, message: 'E-mail ou senha incorreta!' };
 
-const loginUsers = async ({ email, password }) => {
+const loginUser = async ({ email, password }) => {
   if (!email || !password) throw missingFields;
 
   const pass = md5(password);
@@ -26,4 +26,4 @@ if (!userLogin) throw loginIncorreto;
   };
 };
 
-module.exports = { loginUsers };
+module.exports = { loginUser };

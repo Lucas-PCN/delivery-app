@@ -3,7 +3,7 @@ const {
   getSalesProducts,
   getSalePk,
   salesFromCustomer,
-  updateStatus,
+  upStatus,
 } = require('../services/salesService');
 
 const createCheckout = async (req, res, next) => {
@@ -44,12 +44,12 @@ const getSalesByPk = async (req, res, next) => {
   }
 };
 
-const saleStatus = async (req, res, next) => {
+const updateStatus = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
 
-    const update = await updateStatus(id, status);
+    const update = await upStatus(id, status);
 
     return res.status(200).json(update);
   } catch (error) {
@@ -57,4 +57,4 @@ const saleStatus = async (req, res, next) => {
   }
 };
 
-module.exports = { createCheckout, getSales, getSalesByPk, salesCustomer, saleStatus };
+module.exports = { createCheckout, getSales, getSalesByPk, salesCustomer, updateStatus };

@@ -9,9 +9,10 @@ const register = async (req, res, next) => {
   }
 };
 
-const createUser = async (req, res, next) => {
+const create = async (req, res, next) => {
   try {
-    const result = await registerService.createUserByAdmin(req.body);
+    const token = req.headers.authorization;   
+    const result = await registerService.createUserByAdmin(req.body, token);
     return res.status(201).json(result);
   } catch (error) {
     next(error);
@@ -27,25 +28,25 @@ const getAll = async (_req, res, next) => {
   }
 };
 
-const deleteUsers = async (req, res, next) => {
+const remove = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await registerService.deleteUsers(id);
+    const result = await registerService.deleteUser(id);
     return res.status(201).json(result);
   } catch (error) {
     next(error);
   }
 };
 
-const updateUsers = async (req, res, next) => {
+const update = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { name, role } = req.body;
-    const result = await registerService.updateUsers(id, name, role);
+    const result = await registerService.updateUser(id, name, role);
     return res.status(201).json(result);
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { register, createUser, getAll, deleteUsers, updateUsers };
+module.exports = { register, create, getAll, remove, update };

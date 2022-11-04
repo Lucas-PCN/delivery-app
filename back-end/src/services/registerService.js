@@ -2,10 +2,11 @@ const { Op } = require('sequelize');
 const md5 = require('md5');
 
 const { users } = require('../database/models');
-const { generateToken } = require('../utils/jwt');
+const { generateToken, verificaToken } = require('../utils/jwt');
 
 const registered = { status: 409, message: 'Usuário já está registrado!' };
 const userNotFound = { status: 404, message: 'Cliente não encontrado!' };
+const notAdmin = { status: 404, message: 'Usuário não é administrador!' };
 
 const createUser = async ({ name, email, password }) => {
   const pass = md5(password);
@@ -28,8 +29,10 @@ const createUser = async ({ name, email, password }) => {
   };
 };
 
-const createUserByAdmin = async ({ name, email, password, role }) => {
+const createUserByAdmin = async ({ name, email, password, role }, token) => {
   const pass = md5(password);
+  const isAdmin = verificaToken(token);
+  if (isAdmin.data.role !== 'administrator') throw notAdmin;
   const findUser = await users.findOne({ where: {
     [Op.or]: [
       { name },
@@ -54,13 +57,13 @@ const getAllUsers = async () => {
   return getAll;
 };
 
-const deleteUsers = async (id) => {
-  const deleteUser = await users.destroy({ where: { id } });
+const deleteUser = async (id) => {
+  const result = await users.destroy({ where: { id } });
 
-  return deleteUser;
+  return result;
 };
 
-const updateUsers = async (id, name, role) => {
+const updateUser = async (id, name, role) => {
   const findUser = await users.findOne({ where: { id } });
   if (!findUser) throw userNotFound;
 
@@ -73,4 +76,9 @@ const updateUsers = async (id, name, role) => {
   return userUpdated;
 };
 
-module.exports = { createUser, createUserByAdmin, getAllUsers, deleteUsers, updateUsers };
+module.exports = { 
+  createUser, 
+  createUserByAdmin, 
+  getAllUsers, 
+  deleteUser, 
+  updateUser };
