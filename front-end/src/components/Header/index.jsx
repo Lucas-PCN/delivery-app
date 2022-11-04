@@ -9,7 +9,6 @@ function Header() {
 
   const logout = () => {
     localStorage.clear();
-    history.push('/login');
   };
 
   useEffect(() => {
