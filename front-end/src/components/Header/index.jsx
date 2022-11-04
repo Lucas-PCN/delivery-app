@@ -50,10 +50,15 @@ function Header() {
           </h3>
           <button
             onClick={ () => logout() }
-            data-testid="customer_products__element-navbar-link-logout"
             type="button"
           >
-            Sair
+            <Link
+              className="btn-to-logout"
+              to="/login"
+              data-testid="customer_products__element-navbar-link-logout"
+            >
+              Sair
+            </Link>
           </button>
         </div>
       </div>
