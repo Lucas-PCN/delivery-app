@@ -60,6 +60,12 @@
   width: 150px;
 }
 
+.btn-to-logout {
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+}
+
 .btn-rigth {
   align-items: center;
   display: flex;
