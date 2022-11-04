@@ -18,7 +18,6 @@ function Login() {
     error,
     buttonDisable,
     setErro,
-    setToken,
     errorMessage,
     setErrorMessage,
   } = useContext(AuthContext);
@@ -32,7 +31,7 @@ function Login() {
       email: login.email,
       password: login.password,
     }).then((res) => {
-      setToken(res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data));
       history.push('/customer/products');
     }).catch((err) => {
       setErro(true);
