@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
 const SECRET = fs.readFileSync('jwt.evaluation.key', { encoding: 'utf8' });
+
 const config = {
   expiresIn: '15d',
   algorithm: 'HS256',
