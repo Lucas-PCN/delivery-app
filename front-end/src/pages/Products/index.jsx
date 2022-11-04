@@ -15,7 +15,6 @@ function Products() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [buttonDisable, setButtonDisable] = useState(true);
 
-  console.log(cart);
   const history = useHistory();
 
   useEffect(() => {
@@ -26,7 +25,7 @@ function Products() {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    async function getProducts() {
+    const getProducts = async () => {
       const response = await instance.get('/products').then((res) => res.data);
 
       const productList = response.map((res) => {
@@ -38,11 +37,11 @@ function Products() {
       });
 
       setProducts(productList);
-    }
+    };
     getProducts();
   }, [history]);
 
-  function incrementQuantity(id) {
+  const incrementQuantity = (id) => {
     const increment = products.map((product) => {
       if (product.id === id) {
         return {
@@ -52,9 +51,8 @@ function Products() {
       }
       return product;
     });
-
     return setProducts(increment);
-  }
+  };
 
   useEffect(() => {
     const cartList = products.filter((product) => product.quantity >= 1);
@@ -73,7 +71,7 @@ function Products() {
     return setButtonDisable(true);
   }, [totalPrice]);
 
-  function decrementQuantity(id) {
+  const decrementQuantity = (id) => {
     const decrement = products.map((product) => {
       if (product.id === id) {
         if (product.quantity > 0) {
@@ -88,7 +86,7 @@ function Products() {
     });
 
     return setProducts(decrement);
-  }
+  };
 
   const setQuantityProduct = (e, id) => {
     const { value } = e.target;
