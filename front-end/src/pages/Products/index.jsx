@@ -1,6 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useContext, useState } from 'react';
-import { AuthContext } from '../../providers/Auth';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 
 import IconMinus from '../../images/icons/minus-circle.svg';
@@ -10,18 +10,22 @@ import './styles.css';
 
 function Products() {
   const INCREMENT_QUANTITY = 1;
-  const { token } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [buttonDisable, setButtonDisable] = useState(true);
 
-  const instance = axios.create({
-    baseURL: 'http://localhost:3001/',
-    timeout: 1000,
-    headers: { Authorization: `Bearer ${token}` },
-  });
   console.log(cart);
+  const history = useHistory();
+
   useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('user'));
+
+    const instance = axios.create({
+      baseURL: 'http://localhost:3001/',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
     async function getProducts() {
       const response = await instance.get('/products').then((res) => res.data);
 
@@ -36,14 +40,14 @@ function Products() {
       setProducts(productList);
     }
     getProducts();
-  }, []);
+  }, [history]);
 
   function incrementQuantity(id) {
     const increment = products.map((product) => {
       if (product.id === id) {
         return {
           ...product,
-          quantity: product.quantity + INCREMENT_QUANTITY,
+          quantity: product.quantity + 1,
         };
       }
       return product;
@@ -55,9 +59,19 @@ function Products() {
   useEffect(() => {
     const cartList = products.filter((product) => product.quantity >= 1);
     const total = cartList.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+
     setTotalPrice(total);
     setCart(cartList);
   }, [products]);
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    if (totalPrice > 0) return setButtonDisable(false);
+    return setButtonDisable(true);
+  }, [totalPrice]);
 
   function decrementQuantity(id) {
     const decrement = products.map((product) => {
@@ -76,17 +90,35 @@ function Products() {
     return setProducts(decrement);
   }
 
+  const setQuantityProduct = (e, id) => {
+    const { value } = e.target;
+
+    const decrement = products.map((product) => {
+      if (product.id === id) {
+        return {
+          ...product,
+          quantity: Number(value),
+        };
+      }
+      return product;
+    });
+
+    return setProducts(decrement);
+  };
+
+  const redirectToCart = () => history.push('/customer/checkout');
+
   return (
     <div className="products-container">
       <Header />
       <div className="cart-price">
         <button
-          datatestid="customer_products__checkout-bottom-value"
+          data-testid="customer_products__checkout-bottom-value"
           type="button"
+          disabled={ buttonDisable }
+          onClick={ () => redirectToCart() }
         >
-          Ver carrinho: R$
-          {' '}
-          {totalPrice.toFixed(2)}
+          {totalPrice.toFixed(2).replace('.', ',')}
         </button>
       </div>
       <div className="product-content">
@@ -95,39 +127,42 @@ function Products() {
             <li className="product-item" key={ product.id }>
               <img
                 className="image-product"
-                datatestid="customer_products__img-card-bg-image"
+                data-testid={ `customer_products__img-card-bg-image-${product.id}` }
                 src={ product.urlImage }
                 alt="Product"
               />
               <div className="product-name">
                 <strong
-                  datatestid="customer_products__element-card-title"
+                  data-testid={ `customer_products__element-card-title-${product.id}` }
                 >
                   {product.name}
                 </strong>
               </div>
               <div className="card-description">
                 <span
-                  datatestid="customer_products__element-card-price"
+                  data-testid={ `customer_products__element-card-price-${product.id}` }
                 >
-                  { product.price }
+                  { product.price.toString().replace('.', ',') }
                 </span>
                 <div className="btn-quantity">
                   <button
                     type="button"
-                    datatestid="customer_products__button-card-rm-item"
+                    data-testid={ `customer_products__button-card-rm-item-${product.id}` }
                     onClick={ () => decrementQuantity(product.id) }
                   >
                     <img src={ IconMinus } alt="Icon minus" />
                   </button>
                   <input
-                    datatestid="customer_products__input-card-quantity"
+                    data-testid={ `customer_products__input-card-quantity-${product.id}` }
                     type="text"
+                    onChange={ (e) => setQuantityProduct(e, product.id) }
                     value={ product.quantity }
                   />
                   <button
                     type="button"
-                    datatestid="customer_products__button-card-add-item"
+                    data-testid={
+                      `customer_products__button-card-add-item-${product.id}`
+                    }
                     onClick={
                       () => incrementQuantity(product.id)
                     }
