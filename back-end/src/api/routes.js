@@ -1,17 +1,51 @@
 const express = require('express');
-const { createCheckout } = require('../controllers/checkoutController');
+
+const { 
+  createCheckout, 
+  getSalesByPk, 
+  getSales, 
+  salesCustomer,
+  saleStatus,
+} = require('../controllers/salesController');
+
 const loginController = require('../controllers/loginController');
-const productsControoler = require('../controllers/products.controller');
+const productsController = require('../controllers/products.controller');
 const registerController = require('../controllers/registerController');
-const { validateLogin, validateRegister } = require('../middlewares');
+const { validateLogin, validateRegister, autenticaMiddleware } = require('../middlewares');
 
 const route = express();
 
+// rota de login e registro
 route.post('/login', validateLogin, loginController.login);
 route.post('/register', validateRegister, registerController.register);
-route.post('/products', productsControoler.createProducts);
-route.get('/products', productsControoler.getProducts);
-route.post('/checkout', createCheckout);
+
+// rota de produtos
+route.get('/products', autenticaMiddleware, productsController.getProducts);
+
+// rota para criar e atualizar produtos, não é obrigatoria.
+route.put('/products/:id', autenticaMiddleware, productsController.updateById);
+route.post('/products', autenticaMiddleware, productsController.createProducts);
+
+// rotas de sales
+// rota onde apenas o cliente tem acesso, necessário enviar um id do cliente para headers.customer
+route.get('/orders-customer', autenticaMiddleware, salesCustomer);
+
+// rota para realizar a compra do pedido
+route.post('/checkout', autenticaMiddleware, createCheckout);
+
+// rota de detalhes do pedido, todos tem acesso.
+route.get('/orders/:id', autenticaMiddleware, getSalesByPk);
+route.patch('/orders/:id', saleStatus);
+
+// rota que o vendedor tem acesso
+route.get('/orders', autenticaMiddleware, getSales);
+
+// rota para o admin cadastrar novos usuários
+route.post('/management', validateRegister, registerController.createUser);
+route.get('/management', registerController.getAll);
+route.delete('/management/:id', registerController.deleteUsers);
+route.patch('/management/:id', registerController.updateUsers);
+
 // A rota abaixo é um exemplo de como ir para outras rotas autenticado
 // route.get('/teste', autenticaMiddleware, (req, res, _next) => res.send('O'));
 

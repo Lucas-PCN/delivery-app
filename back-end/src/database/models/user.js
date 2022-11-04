@@ -4,6 +4,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     },
     name: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -15,13 +17,13 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true
   });
 
-  Users.associate = (models) => {
-    models.users.hasMany(models.sales, {
-      foreignKey: 'user_id',
-    }),
-    models.users.hasMany(models.sales, {
-      foreignKey: 'seller_id',
-    })
-  }
+  // Users.associate = (models) => {
+  //   models.users.hasMany(models.sales, {
+  //     foreignKey: 'user_id',
+  //   }),
+  //   models.users.hasMany(models.sales, {
+  //     foreignKey: 'seller_id',
+  //   })
+  // }
   return Users;
 };

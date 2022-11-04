@@ -13,7 +13,7 @@ jwt.sign({ data }, SECRET, config);
 
 const verificaToken = (token) => {
   if (!token) {
-    const erro = { status: 401, message: 'Token not found' };
+    const erro = { status: 401, message: 'Token não encontrado!' };
     throw erro;
   }
 

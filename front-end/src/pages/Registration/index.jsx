@@ -7,7 +7,9 @@ import { AuthContext } from '../../providers/Auth';
 function Registration() {
   const history = useHistory();
   const [errorRegistration, setErrorRegistration] = useState(false);
-  const { register, setRegister } = useContext(AuthContext);
+  const {
+    register,
+    setRegister, setErro, error, setToken } = useContext(AuthContext);
 
   const validationRegister = () => {
     const MIN_PASSWORD = 5;
@@ -19,14 +21,28 @@ function Registration() {
     return !(passwordCheck && emailCheck && fullNameCheck);
   };
 
-  const handleClick = () => {
-    // implementar a rota do back e colocar o erro retornado da maneira correta
-    axios
-      .post('https://localhost:3001/users', register)
-      .then((res) => console.log(res))
-      .catch((error) => setErrorRegistration(error.message));
+  // useEffect(() => {
 
-    history.push('/customer/products');
+  // }, [token]);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    axios
+      .post('http://localhost:3001/register', {
+        name: register.name,
+        email: register.email,
+        password: register.password,
+      })
+      .then((res) => {
+        console.log(res);
+        setToken(res.data.token);
+        history.push('/customer/products');
+      })
+      .catch((err) => {
+        setErro(true);
+        setErrorRegistration(err.message);
+        // document.location.reload();
+      });
   };
 
   return (
@@ -86,10 +102,12 @@ function Registration() {
           </div>
         </form>
         <div
-          data-testid="common_login__element-invalid-email"
-          className={ errorRegistration ? 'span-error' : 'span-error-disable' }
+          data-testid="common_register__element-invalid_register"
+          className={ error ? 'span-error' : 'span-error-disable' }
         >
-          <h4>{errorRegistration}</h4>
+          <h4>
+            {errorRegistration}
+          </h4>
         </div>
       </div>
     </div>
