@@ -3,9 +3,9 @@
 }
 
 .product-content {
-  margin: 25px auto;
+  margin: 0 auto;
+  margin-bottom: 75px;
   max-width: 1220px;
-  padding: 20px;
 }
 
 .list-products {
@@ -13,16 +13,17 @@
   gap: 15px;
   grid-template-columns: repeat(4, 1fr);
   list-style: none;
+  padding: 20px;
   width: 100%;
 }
 
 .product-item {
   background: white;
-  border: 1px solid rgb(206, 204, 204);
+  border: 1px solid #e6e6f0;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
-  height: 460px;
+  height: 450px;
   justify-content: space-between;
   padding: 20px;
   width: 100%;
@@ -64,7 +65,6 @@
   border-radius: 4px;
   font-size: 20px;
   height: 35px;
-  padding-left: 18px;
   width: 55px;
 }
 
@@ -88,10 +88,13 @@
 }
 
 .cart-price button {
-  background: #04d361;
+  background: #2fc18c;
   border: none;
   border-radius: 4px;
+  color: white;
+  cursor: pointer;
   font-size: 20px;
+  font-weight: 700;
   height: 50px;
   width: 350px;
 }
