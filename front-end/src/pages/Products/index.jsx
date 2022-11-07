@@ -7,7 +7,7 @@ import IconMinus from '../../images/icons/minus-circle.svg';
 import IconPlus from '../../images/icons/plus-circle.svg';
 import { AuthContext } from '../../providers/Auth';
 
-// import './styles.css';
+import './styles.css';
 
 function Products() {
   const INCREMENT_QUANTITY = 1;
@@ -112,7 +112,7 @@ function Products() {
       <Header />
       <div className="cart-price">
         <button
-          data-testid="customer_products__button-cart"
+          data-testid="customer_products__checkout-bottom-value"
           type="button"
           disabled={ buttonDisable }
           onClick={ () => redirectToCart() }
