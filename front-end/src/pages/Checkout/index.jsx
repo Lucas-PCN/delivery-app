@@ -5,7 +5,6 @@ import Delivery from '../../components/Delivery';
 import Header from '../../components/Header';
 import Table from '../../components/Table';
 import { AuthContext } from '../../providers/Auth';
-import { getUser } from '../../ultils/localStorage';
 import './style.css';
 
 function Checkout() {
@@ -28,17 +27,17 @@ function Checkout() {
     });
     const getManage = async () => {
       const response = await instance.get('/admin/manage')
-      .then((res) => res.data)
-      .catch((err) => {
-        setErro(true);
-        console.log('error', err);
-        setErrorMessage(err.message);
-      });;
+        .then((res) => res.data)
+        .catch((err) => {
+          setErro(true);
+          console.log('error', err);
+          setErrorMessage(err.message);
+        });
 
       const manages = await response.filter(({ role }) => role === 'seller');
       setSellers(manages);
-      setCheckout({ ...checkout, sellerId: manages[0].id})
-      setCart(JSON.parse(localStorage.getItem('cart')))
+      setCheckout({ ...checkout, sellerId: manages[0].id });
+      setCart(JSON.parse(localStorage.getItem('cart')));
     };
     getManage();
   }, []);
@@ -68,7 +67,8 @@ function Checkout() {
 
   useEffect(() => {
     const totalPrice = () => {
-      const total = cart.reduce((acc, cur) => acc + (Number(cur.price) * cur.quantity), 0);
+      const total = cart
+        .reduce((acc, cur) => acc + (Number(cur.price) * cur.quantity), 0);
       setCheckout({ ...checkout, totalPrice: total.toFixed(2) });
     };
     totalPrice();
