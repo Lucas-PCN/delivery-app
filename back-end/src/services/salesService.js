@@ -8,18 +8,22 @@ const productNotFound = { status: 404, message: 'Produto não encontrado!' };
 const saleNotFound = { status: 404, message: 'Venda não encontrada!' };
 
 const validations = async (objs) => {
+  console.log('backend', objs);
   const findUser = await users.findOne({ where: { id: objs.userId } });
+  console.log(findUser);
   if (!findUser) throw userNotFound;
   const findSeller = await users.findOne({ where: { id: objs.sellerId } });
+  console.log(findSeller);
   if (!findSeller) throw sellerNotFound;
 };
 
 const validationPro = async (ob) => {
   const resu = [];
   for (let index = 0; index < ob.products.length; index += 1) {
-    resu.push(products.findOne({ where: { id: ob.products[index].productId } }));
+    resu.push(products.findOne({ where: { id: ob.products[index].id } }));
   }
  const teste = await Promise.all(resu);
+ console.log('teste', teste);
  for (let index = 0; index < teste.length; index += 1) {
   if (!teste[index]) throw productNotFound;
 }
@@ -64,7 +68,7 @@ const cartCheckout = async (obj) => {
   obj.products.forEach(async (product) => {
     await salesProducts.create({
       saleId: result.id, 
-      productId: product.productId, 
+      productId: product.id, 
       quantity: product.quantity, 
     });
   });

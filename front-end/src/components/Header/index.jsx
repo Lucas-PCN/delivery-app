@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { AuthContext } from '../../providers/Auth';
 
 import './style.css';
 
 function Header() {
   const history = useHistory();
-  const [user, setUser] = useState('');
+  const { user, setUser } = useContext(AuthContext);
 
   const logout = () => {
     localStorage.clear();

@@ -1,17 +1,18 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 
 import IconMinus from '../../images/icons/minus-circle.svg';
 import IconPlus from '../../images/icons/plus-circle.svg';
+import { AuthContext } from '../../providers/Auth';
 
 import './styles.css';
 
 function Products() {
   const INCREMENT_QUANTITY = 1;
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+  const { cart, setCart } = useContext(AuthContext);
   const [totalPrice, setTotalPrice] = useState(0);
   const [buttonDisable, setButtonDisable] = useState(true);
 
@@ -22,7 +23,7 @@ function Products() {
 
     const instance = axios.create({
       baseURL: 'http://localhost:3001/',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { authorization: token.token },
     });
 
     const getProducts = async () => {
@@ -55,16 +56,16 @@ function Products() {
   };
 
   useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
     const cartList = products.filter((product) => product.quantity >= 1);
     const total = cartList.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
 
     setTotalPrice(total);
     setCart(cartList);
   }, [products]);
-
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
 
   useEffect(() => {
     if (totalPrice > 0) return setButtonDisable(false);
@@ -111,12 +112,16 @@ function Products() {
       <Header />
       <div className="cart-price">
         <button
-          data-testid="customer_products__checkout-bottom-value"
+          data-testid="customer_products__button-cart"
           type="button"
           disabled={ buttonDisable }
           onClick={ () => redirectToCart() }
         >
-          {totalPrice.toFixed(2).replace('.', ',')}
+          <tag
+            data-testid="customer_products__checkout-bottom-value"
+          >
+            {totalPrice.toFixed(2).replace('.', ',')}
+          </tag>
         </button>
       </div>
       <div className="product-content">
