@@ -43,12 +43,13 @@ function Table() {
             <td
               data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
             >
-              { `R$ ${item.price}` }
+              { `R$ ${item.price.replace('.', ',')}` }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
             >
-              { `R$ ${Number(item.price) * Number(item.quantity).toFixed(2)}` }
+              { `R$ ${(Number(item.price) * Number(item.quantity))
+                .toFixed(2).replace('.', ',')}` }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-remove-${index}` }

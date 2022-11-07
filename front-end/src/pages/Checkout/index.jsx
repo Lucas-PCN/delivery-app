@@ -69,15 +69,15 @@ function Checkout() {
     const totalPrice = () => {
       const total = cart
         .reduce((acc, cur) => acc + (Number(cur.price) * cur.quantity), 0);
-      setCheckout({ ...checkout, totalPrice: total.toFixed(2) });
+      setCheckout({ ...checkout, totalPrice: total.toFixed(2).replace('.', ',') });
     };
     totalPrice();
   }, [cart]);
 
   return (
     <div className="checkout-container">
+      <Header />
       <div className="checkout-content">
-        <Header />
         <div className="request-content">
           <p className="order-title">Finalizar Pedido</p>
           <div className="list-products-table">
