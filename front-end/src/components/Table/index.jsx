@@ -9,7 +9,6 @@ function Table() {
     console.log(index);
     const objs = cart.filter((obj) => obj !== cart[index]);
     setCart(objs);
-    console.log(objs);
     updateCarsRemove(objs);
   };
   const headerTable = ['Item',
