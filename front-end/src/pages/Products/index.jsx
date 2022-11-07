@@ -7,7 +7,7 @@ import IconMinus from '../../images/icons/minus-circle.svg';
 import IconPlus from '../../images/icons/plus-circle.svg';
 import { AuthContext } from '../../providers/Auth';
 
-import './styles.css';
+// import './styles.css';
 
 function Products() {
   const INCREMENT_QUANTITY = 1;
