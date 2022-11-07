@@ -1,7 +1,7 @@
 const { sales, users, salesProducts, products } = require('../database/models');
 
-const timeElapsed = Date.now();
-const today = new Date(timeElapsed);
+// const timeElapsed = Date.now();
+// const today = new Date(timeElapsed);
 const userNotFound = { status: 404, message: 'Cliente não encontrado!' };
 const sellerNotFound = { status: 404, message: 'Funcionário não encontrado!' };
 const productNotFound = { status: 404, message: 'Produto não encontrado!' };
