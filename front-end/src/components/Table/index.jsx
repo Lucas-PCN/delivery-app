@@ -25,7 +25,7 @@ function Table() {
           <tr key={ index }>
             <td
               data-testid={ `
-              customer_checkout__element-order-table-item-number-${index}` }
+              customer_checkout__element-order-table-item-number--${index}` }
             >
               { index + 1}
             </td>
