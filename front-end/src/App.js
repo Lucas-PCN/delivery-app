@@ -10,12 +10,12 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route index path="/login" component={ Login } />
-        <Route index path="/register" component={ Registration } />
-        <Route path="/customer/products" component={ Products } />
-        <Route index path="/customer/checkout" component={ Checkout } />
+        <Route exact path="/login" component={ Login } />
+        <Route exact path="/register" component={ Registration } />
+        <Route exact path="/customer/products" component={ Products } />
+        <Route exact path="/customer/checkout" component={ Checkout } />
         <Route exact path="/customer/orders" component={ Sales } />
-        <Route path="/" render={ () => <Redirect to="/login" /> } />
+        <Route exact path="/" render={ () => <Redirect to="/login" /> } />
       </Switch>
     </Router>
   );
