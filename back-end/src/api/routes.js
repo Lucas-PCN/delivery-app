@@ -29,7 +29,7 @@ route.post('/products', autenticaToken, productsController.createProducts);
 
 // rotas de sales
 // O cliente tem acesso ao seu proprio pedido, necessário enviar um id do cliente para headers.customer
-route.get('/orders-customer', autenticaToken, salesCustomer);
+route.get('/customer/orders', autenticaToken, salesCustomer);
 // Realizar a compra do pedido
 route.post('/checkout', autenticaToken, createCheckout);
 // Detalhes do pedido, todos tem acesso.
