@@ -112,7 +112,7 @@ function Products() {
       <Header />
       <div className="cart-price">
         <button
-          data-testid="customer_products__checkout-bottom-value"
+          data-testid="customer_products__button-cart"
           type="button"
           disabled={ buttonDisable }
           onClick={ () => redirectToCart() }
