@@ -24,12 +24,12 @@ function Table() {
       <tbody>
         { cart.map((item, index) => (
           <tr key={ index }>
-            <th
+            <td
               data-testid={ `customer_checkout__
               element-order-table-item-number-${index}` }
             >
               { index + 1}
-            </th>
+            </td>
             <td
               data-testid={ `customer_checkout__element-order-table-name-${index}` }
             >
