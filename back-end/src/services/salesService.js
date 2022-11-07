@@ -8,12 +8,12 @@ const productNotFound = { status: 404, message: 'Produto não encontrado!' };
 const saleNotFound = { status: 404, message: 'Venda não encontrada!' };
 
 const validations = async (objs) => {
-  console.log('backend', objs);
+  // console.log('backend', objs);
   const findUser = await users.findOne({ where: { id: objs.userId } });
-  console.log(findUser);
+  // console.log(findUser);
   if (!findUser) throw userNotFound;
   const findSeller = await users.findOne({ where: { id: objs.sellerId } });
-  console.log(findSeller);
+  // console.log(findSeller);
   if (!findSeller) throw sellerNotFound;
 };
 
