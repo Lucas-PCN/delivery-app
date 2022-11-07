@@ -27,20 +27,22 @@
   width: 80%;
 }
 
-.list-products {
+.list-products-table {
   display: flex;
   height: 50%;
   justify-content: center;
+  overflow: auto;
   width: 100%;
 }
 
-.list-products table {
+.list-products-table table {
   flex-direction: row;
   text-align: center;
   width: inherit;
 }
 
 td button {
+  background-color: #2FC18C;
   border: 1px solid darkcyan;
   border-radius: 4px;
   height: 32px;
@@ -95,15 +97,16 @@ p {
 } */
 
 .request-content .total {
-  align-self: center;
+  align-self: end;
   background: rgb(235, 226, 226);
   border-radius: 6px;
   color: #32264d;
   display: flex;
-  font-weight: 800;
+  font-size: x-large;
+  font-weight: 900;
   justify-content: center;
   padding: 9px;
-  width: 93%;
+  width: 30%;
 }
 
 select {

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import validateEmail from '../ultils/verifyEmail';
+import getCars from '../ultils/localStorage';
 
 export const AuthContext = React.createContext({});
 
@@ -17,23 +18,51 @@ export function AuthProvider({ children }) {
   });
 
   const [token, setToken] = useState('');
+  const [user, setUser] = useState({});
+  const [sellers, setSellers] = useState([]);
+
   const [error, setErro] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisable, setButtonDisable] = useState(true);
+  const [cart, setCart] = useState([]);
+  const [checkout, setCheckout] = useState({
+    seller: '',
+    sellerId: 1,
+    address: '',
+    number: '',
+    totalPrice: 0,
+  });
+
+  console.log('passou por aqui', cart);
+  useEffect(() => {
+    const onLoadPage = () => {
+      const products = getCars();
+      setCart(products);
+    };
+    onLoadPage();
+  }, []);
 
   const context = useMemo(() => ({
     login,
     error,
     token,
+    user,
     errorMessage,
     buttonDisable,
+    cart,
+    register,
+    sellers,
+    checkout,
     setLogin,
     setErro,
-    register,
     setToken,
     setErrorMessage,
     setButtonDisable,
     setRegister,
+    setCart,
+    setCheckout,
+    setUser,
+    setSellers,
   }), [
     login,
     error,
@@ -41,6 +70,10 @@ export function AuthProvider({ children }) {
     errorMessage,
     buttonDisable,
     register,
+    cart,
+    checkout,
+    user,
+    sellers,
   ]);
 
   useEffect(() => {

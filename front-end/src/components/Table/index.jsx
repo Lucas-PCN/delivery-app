@@ -1,21 +1,16 @@
-export const info = [{
-  name: 'Cerveja',
-  quantity: 3,
-  price: 'R$3.50',
-  total: '10.50',
-},
-{
-  name: 'Refri',
-  quantity: 5,
-  price: 'R$7.00',
-  total: '35',
-}];
+import { useContext } from 'react';
+import { AuthContext } from '../../providers/Auth';
+import { updateCarsRemove } from '../../ultils/localStorage';
 
 function Table() {
+  const { cart, setCart } = useContext(AuthContext);
+
   const removeProduct = (index) => {
     console.log(index);
-    const objs = info.filter((obj) => obj !== info[index]);
+    const objs = cart.filter((obj) => obj !== cart[index]);
+    setCart(objs);
     console.log(objs);
+    updateCarsRemove(objs);
   };
   const headerTable = ['Item',
     'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total', 'Remover Item'];
@@ -27,7 +22,7 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        { info.map((item, index) => (
+        { cart.map((item, index) => (
           <tr key={ index }>
             <th
               data-testid={ `customer_checkout__
@@ -48,12 +43,12 @@ function Table() {
             <td
               data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
             >
-              { item.price }
+              { `R$ ${item.price}` }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
             >
-              { `R$ ${Number(item.total).toFixed(2)}` }
+              { `R$ ${Number(item.price) * Number(item.quantity).toFixed(2)}` }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-remove-${index}` }
