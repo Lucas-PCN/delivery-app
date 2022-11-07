@@ -4,16 +4,18 @@ import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
 import Products from './pages/Products';
+import Sales from './pages/Sales';
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route index path="/login" component={ Login } />
-        <Route index path="/register" component={ Registration } />
-        <Route path="/customer/products" component={ Products } />
-        <Route index path="/customer/checkout" component={ Checkout } />
-        <Route path="/" render={ () => <Redirect to="/login" /> } />
+        <Route exact path="/login" component={ Login } />
+        <Route exact path="/register" component={ Registration } />
+        <Route exact path="/customer/products" component={ Products } />
+        <Route exact path="/customer/checkout" component={ Checkout } />
+        <Route exact path="/customer/orders" component={ Sales } />
+        <Route exact path="/" render={ () => <Redirect to="/login" /> } />
       </Switch>
     </Router>
   );
