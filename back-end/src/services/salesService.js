@@ -62,7 +62,7 @@ const cartCheckout = async (obj) => {
 
   const result = await sales.create({ 
     ...obj,
-    saleDate: today.toISOString(),
+    // saleDate: today.toISOString(),
     status: 'Pendente' });
 
   obj.products.forEach(async (product) => {
