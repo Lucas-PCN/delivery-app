@@ -65,7 +65,7 @@ function Products() {
 
     setTotalPrice(total);
     setCart(cartList);
-  }, [products]);
+  }, [products, setCart]);
 
   useEffect(() => {
     if (totalPrice > 0) return setButtonDisable(false);

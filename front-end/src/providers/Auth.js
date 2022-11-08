@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
     totalPrice: 0,
   });
 
-  console.log('passou por aqui', cart);
+  // console.log('passou por aqui', cart);
   useEffect(() => {
     const onLoadPage = () => {
       const products = getCars();

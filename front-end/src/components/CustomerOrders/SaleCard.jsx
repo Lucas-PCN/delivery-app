@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 export default function SaleCard({
   saleId,
+  order,
   status,
   saleDate,
   totalPrice }) {
@@ -30,32 +31,30 @@ export default function SaleCard({
   };
 
   return (
-    <div key={ saleId } onClick={ () => onClick(saleId) } aria-hidden="true">
+    <div
+      type="button"
+      key={ saleId }
+      onClick={ () => onClick(saleId) }
+      aria-hidden="true"
+      data-testid={ `customer_orders__element-order-id-${saleId}` }
+    >
       <section>
-        <span
-          data-testid={ `customer_orders__element-order-id-${saleId}` }
-        >
-          {`Pedido: ${saleId}`}
+        <span data-testid={ `customer_orders__element-order-id-${order}` }>
+          {`Pedido: ${order}`}
         </span>
       </section>
       <section>
-        <span
-          data-testid={ `customer_orders__element-delivery-status-${saleId}` }
-        >
+        <span data-testid={ `customer_orders__element-delivery-status-${order}` }>
           {status}
         </span>
       </section>
       <section>
-        <span
-          data-testid={ `customer_orders__element-order-date-${saleId}` }
-        >
+        <span data-testid={ `customer_orders__element-order-date-${order}` }>
           {handleSaleDate(saleDate)}
         </span>
       </section>
       <section>
-        <span
-          data-testid={ `customer_orders__element-card-price-${saleId}` }
-        >
+        <span data-testid={ `customer_orders__element-card-price-${order}` }>
           {changeTotalPrice(totalPrice)}
         </span>
       </section>
