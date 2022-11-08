@@ -6,6 +6,7 @@ import Registration from './pages/Registration';
 import Products from './pages/Products';
 import Orders from './pages/Orders';
 import Sales from './pages/Sales';
+import Admin from './pages/Admin';
 
 function App() {
   return (

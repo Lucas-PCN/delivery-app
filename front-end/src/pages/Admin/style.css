@@ -1,0 +1,30 @@
+.admin-container {
+  width: 100%;
+}
+
+.admin-content {
+  margin: 20px auto;
+  max-width: 1220px;
+}
+
+.span-error-type {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.error {
+  align-items: center;
+  background: rgba(230, 178, 8, 0.918);
+  border-radius: 4px;
+  color: white;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  width: 350px;
+}
+
+.span-error-type-disable {
+  display: none;
+}
