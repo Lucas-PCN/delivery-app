@@ -5,7 +5,9 @@ import getCars from '../ultils/localStorage';
 
 export const AuthContext = React.createContext({});
 
+const MAX_NAME = 12;
 const MAX_PASSWORD = 6;
+
 export function AuthProvider({ children }) {
   const [login, setLogin] = useState({
     email: '',
@@ -20,11 +22,15 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState('');
   const [user, setUser] = useState({});
   const [sellers, setSellers] = useState([]);
-
+  const [adminUsers, setAdminUsers] = useState([]);
+  const [buttonAdminCreateDisable, setButtonAdminCreateDisable] = useState(true);
   const [error, setErro] = useState(false);
+  const [errorCreateAdmin, setErrorCreateAdmin] = useState(false);
+  const [messageErrorAdminCreate, setMessageErrorAdminCreate] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisable, setButtonDisable] = useState(true);
   const [cart, setCart] = useState([]);
+
   const [checkout, setCheckout] = useState({
     seller: '',
     sellerId: 1,
@@ -33,7 +39,25 @@ export function AuthProvider({ children }) {
     totalPrice: 0,
   });
 
-  console.log('passou por aqui', cart);
+  const [adminCreateUser, setAdminCreateUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'Cliente',
+  });
+
+  useEffect(() => {
+    const validEmal = validateEmail(adminCreateUser.email);
+
+    if (
+      adminCreateUser.name.length >= MAX_NAME
+      && adminCreateUser.password.length >= MAX_PASSWORD
+      && validEmal) {
+      return setButtonAdminCreateDisable(false);
+    }
+    return setButtonAdminCreateDisable(true);
+  }, [adminCreateUser]);
+
   useEffect(() => {
     const onLoadPage = () => {
       const products = getCars();
@@ -53,6 +77,11 @@ export function AuthProvider({ children }) {
     register,
     sellers,
     checkout,
+    adminUsers,
+    adminCreateUser,
+    buttonAdminCreateDisable,
+    errorCreateAdmin,
+    messageErrorAdminCreate,
     setLogin,
     setErro,
     setToken,
@@ -63,6 +92,11 @@ export function AuthProvider({ children }) {
     setCheckout,
     setUser,
     setSellers,
+    setAdminUsers,
+    setAdminCreateUser,
+    setButtonAdminCreateDisable,
+    setErrorCreateAdmin,
+    setMessageErrorAdminCreate,
   }), [
     login,
     error,
@@ -74,6 +108,11 @@ export function AuthProvider({ children }) {
     checkout,
     user,
     sellers,
+    adminUsers,
+    adminCreateUser,
+    buttonAdminCreateDisable,
+    errorCreateAdmin,
+    messageErrorAdminCreate,
   ]);
 
   useEffect(() => {
