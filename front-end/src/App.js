@@ -6,6 +6,7 @@ import Registration from './pages/Registration';
 import Products from './pages/Products';
 // import Orders from './pages/Orders';
 import Sales from './pages/Sales';
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/customer/orders" component={ Sales } />
         <Route path="/customer/products" component={ Products } />
         <Route index path="/customer/checkout" component={ Checkout } />
+        <Route path="/admin/manager" component={ Admin } />
         {/* <Route index path="/customer/orders/:id" component={ Orders } /> */}
         <Route path="/" render={ () => <Redirect to="/login" /> } />
       </Switch>

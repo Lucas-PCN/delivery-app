@@ -1,0 +1,29 @@
+.form-user {
+  align-items: center;
+  background: white;
+  border: 1px solid rgb(214, 207, 207);
+  border-radius: 4px;
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(5, 1fr);
+  margin-top: 45px;
+  padding: 20px;
+  width: 100%;
+}
+
+.form-user label {
+  width: 100%;
+}
+
+.form-user label input, select {
+  border: 1px solid rgb(190, 182, 182);
+  border-radius: 4px;
+  height: 40px;
+  outline: none;
+  width: 100%;
+}
+
+.form-user button {
+  height: 40px;
+  margin-top: 25px;
+}

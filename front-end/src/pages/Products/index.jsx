@@ -19,11 +19,11 @@ function Products() {
   const history = useHistory();
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'));
 
     const instance = axios.create({
       baseURL: 'http://localhost:3001/',
-      headers: { authorization: token.token },
+      headers: { authorization: user.token },
     });
 
     const getProducts = async () => {
