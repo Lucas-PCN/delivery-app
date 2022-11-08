@@ -1,19 +1,19 @@
 const { sales, users, salesProducts, products } = require('../database/models');
 
-const timeElapsed = Date.now();
-const today = new Date(timeElapsed);
+// const timeElapsed = Date.now();
+// const today = new Date(timeElapsed);
 const userNotFound = { status: 404, message: 'Cliente não encontrado!' };
 const sellerNotFound = { status: 404, message: 'Funcionário não encontrado!' };
 const productNotFound = { status: 404, message: 'Produto não encontrado!' };
 const saleNotFound = { status: 404, message: 'Venda não encontrada!' };
 
 const validations = async (objs) => {
-  console.log('backend', objs);
+  // console.log('backend', objs);
   const findUser = await users.findOne({ where: { id: objs.userId } });
-  console.log(findUser);
+  // console.log(findUser);
   if (!findUser) throw userNotFound;
   const findSeller = await users.findOne({ where: { id: objs.sellerId } });
-  console.log(findSeller);
+  // console.log(findSeller);
   if (!findSeller) throw sellerNotFound;
 };
 
@@ -23,7 +23,7 @@ const validationPro = async (ob) => {
     resu.push(products.findOne({ where: { id: ob.products[index].id } }));
   }
  const teste = await Promise.all(resu);
- console.log('teste', teste);
+//  console.log('teste', teste);
  for (let index = 0; index < teste.length; index += 1) {
   if (!teste[index]) throw productNotFound;
 }
@@ -62,7 +62,7 @@ const cartCheckout = async (obj) => {
 
   const result = await sales.create({ 
     ...obj,
-    saleDate: today.toISOString(),
+    // saleDate: today.toISOString(),
     status: 'Pendente' });
 
   obj.products.forEach(async (product) => {
@@ -72,6 +72,8 @@ const cartCheckout = async (obj) => {
       quantity: product.quantity, 
     });
   });
+
+  console.log('RESULT', result);
     
   return result;
 };

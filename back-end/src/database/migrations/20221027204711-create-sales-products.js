@@ -5,7 +5,7 @@ const sales = require("../models/sales");
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('salesProducts', {
+    await queryInterface.createTable('sales_products', {
       saleId: {
         allowNull: false,
         type: Sequelize.INTEGER,

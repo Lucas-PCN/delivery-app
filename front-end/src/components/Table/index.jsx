@@ -4,12 +4,12 @@ import { updateCarsRemove } from '../../ultils/localStorage';
 
 function Table() {
   const { cart, setCart } = useContext(AuthContext);
+  const prefix = 'customer_checkout__';
 
   const removeProduct = (index) => {
     console.log(index);
     const objs = cart.filter((obj) => obj !== cart[index]);
     setCart(objs);
-    console.log(objs);
     updateCarsRemove(objs);
   };
   const headerTable = ['Item',
@@ -25,34 +25,33 @@ function Table() {
         { cart.map((item, index) => (
           <tr key={ index }>
             <td
-              data-testid={ `customer_checkout__
-              element-order-table-item-number-${index}` }
+              data-testid={ `${prefix}element-order-table-item-number-${index}` }
             >
               { index + 1}
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-name-${index}` }
+              data-testid={ `${prefix}element-order-table-name-${index}` }
             >
               { item.name }
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
+              data-testid={ `${prefix}element-order-table-quantity-${index}` }
             >
               { item.quantity }
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
+              data-testid={ `${prefix}element-order-table-unit-price-${index}` }
             >
               { `R$ ${item.price.replace('.', ',')}` }
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
+              data-testid={ `${prefix}element-order-table-sub-total-${index}` }
             >
               { `R$ ${(Number(item.price) * Number(item.quantity))
                 .toFixed(2).replace('.', ',')}` }
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+              data-testid={ `${prefix}element-order-table-remove-${index}` }
             >
               <button
                 type="button"

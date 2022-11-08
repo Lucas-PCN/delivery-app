@@ -48,7 +48,7 @@ function Checkout() {
       .post('http://localhost:3001/checkout', {
         userId: user.id,
         sellerId: checkout.sellerId,
-        totalPrice: checkout.totalPrice,
+        totalPrice: checkout.totalPrice.replace(',', '.'),
         deliveryAddress: checkout.address,
         deliveryNumber: checkout.number,
         products: cart,
