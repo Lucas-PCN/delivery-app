@@ -117,11 +117,11 @@ function Products() {
           disabled={ buttonDisable }
           onClick={ () => redirectToCart() }
         >
-          <tag
+          <div
             data-testid="customer_products__checkout-bottom-value"
           >
             {totalPrice.toFixed(2).replace('.', ',')}
-          </tag>
+          </div>
         </button>
       </div>
       <div className="product-content">
