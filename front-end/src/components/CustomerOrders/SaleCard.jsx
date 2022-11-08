@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 export default function SaleCard({
   saleId,
-  sale,
   status,
   saleDate,
   totalPrice }) {
@@ -22,7 +21,6 @@ export default function SaleCard({
   const onClick = (value) => {
     history.push({
       pathname: `/customer/orders/${value}`,
-      state: sale,
     });
   };
 
@@ -32,12 +30,12 @@ export default function SaleCard({
   };
 
   return (
-    <div onClick={ () => onClick(saleId) } aria-hidden="true">
+    <div key={ saleId } onClick={ () => onClick(saleId) } aria-hidden="true">
       <section>
         <span
           data-testid={ `customer_orders__element-order-id-${saleId}` }
         >
-          {`Pedido: ${sale}`}
+          {`Pedido: ${saleId}`}
         </span>
       </section>
       <section>
@@ -67,7 +65,6 @@ export default function SaleCard({
 
 SaleCard.propTypes = {
   saleId: PropTypes.number,
-  sale: PropTypes.string,
   status: PropTypes.string,
   saleDate: PropTypes.string,
   totalPrice: PropTypes.string,

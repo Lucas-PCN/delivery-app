@@ -36,7 +36,7 @@ function Header() {
           <Link
             className="btn-to-checkout"
             data-testid="customer_products__element-navbar-link-orders"
-            to="/customer/checkout"
+            to="/customer/orders"
             type="button"
           >
             Meus pedidos
