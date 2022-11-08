@@ -31,7 +31,7 @@ function Registration() {
       })
       .then((res) => {
         console.log(res);
-        localStorage.setItem('user', JSON.stringify(res));
+        localStorage.setItem('user', JSON.stringify(res.data));
         history.push('/customer/products');
       })
       .catch((err) => {
