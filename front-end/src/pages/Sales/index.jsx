@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../components/Header';
-import SaleCard from '../../components/SaleCard';
+import SaleCard from '../../components/CustomerOrders/SaleCard';
 
 function Sales() {
   const [customerSales, setCustomerSales] = useState([]);
-  const history = useHistory();
+  const [loading, setLoading] = useState(true);
   const [idUser, setIdUser] = useState();
   const [userToken, setUserToken] = useState();
+  const history = useHistory();
 
   useEffect(() => {
     const getUserInfo = () => {
@@ -20,36 +21,32 @@ function Sales() {
       setUserToken(token);
     };
 
-    const fetchCustomerSales = async (value) => {
-      const url = 'http://www.localhost:3001/customer/orders';
-      const header = { headers: {
-        Authorization: `${userToken}`,
-        customer: `${idUser}`,
-      } };
-      const { data } = await axios.get(url, header);
-      const salesByUserId = data.filter((sale) => sale.userId === value);
-      setCustomerSales(salesByUserId);
+    const fetchCustomerSales = async () => {
+      const url = 'http://www.localhost:3001/customer-orders/5';
+      // const customerId = { id: userId };
+      // const header = { headers: { Authorization: `${userToken}` } };
+      const salesArray = await axios.get(url);
+      console.log(salesArray);
+      setCustomerSales(salesArray.data);
     };
     getUserInfo();
-    fetchCustomerSales(idUser); // colocar ID do usuário de forma dinamica
+    fetchCustomerSales();
+    setLoading(false);
   }, [idUser, history, userToken]);
 
   return (
     <div className="sales-container">
-      <Header />
-      <div className="cards-container">
-        { customerSales.map(({ id, userId, status, saleDate, totalPrice }, index) => (
-          <SaleCard
-            key={ id }
-            saleId={ id }
-            userId={ userId }
-            sale={ `${index + 1}` }
-            status={ status }
-            saleDate={ saleDate }
-            totalPrice={ totalPrice }
-          />
-        )) }
-      </div>
+      { loading && <span>Loading...</span>}
+      { !loading && <Header />}
+      { !loading && customerSales.map((el) => (
+        <SaleCard
+          key={ el.id }
+          saleId={ el.id }
+          status={ el.status }
+          saleDate={ el.saleDate }
+          totalPrice={ el.totalPrice }
+        />
+      ))}
     </div>
   );
 }

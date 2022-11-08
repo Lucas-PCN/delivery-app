@@ -26,8 +26,8 @@ const getSales = async (_req, res, next) => {
 
 const salesCustomer = async (req, res, next) => {
   try {
-    const { customer } = req.headers;
-    const rows = await salesFromCustomer(customer);
+    const { id } = req.params;
+    const rows = await salesFromCustomer(id);
     return res.status(200).json(rows);
   } catch (error) {
     next(error);
