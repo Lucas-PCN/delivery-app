@@ -12,6 +12,7 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route exact path="/admin/manager" component={ Admin } />
         <Route exact path="/customer/orders/:id" component={ Orders } />
         <Route exact path="/customer/orders" component={ Sales } />
         <Route exact path="/customer/checkout" component={ Checkout } />
