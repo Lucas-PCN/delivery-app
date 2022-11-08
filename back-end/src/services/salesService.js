@@ -23,7 +23,7 @@ const validationPro = async (ob) => {
     resu.push(products.findOne({ where: { id: ob.products[index].id } }));
   }
  const teste = await Promise.all(resu);
- console.log('teste', teste);
+//  console.log('teste', teste);
  for (let index = 0; index < teste.length; index += 1) {
   if (!teste[index]) throw productNotFound;
 }
@@ -72,6 +72,8 @@ const cartCheckout = async (obj) => {
       quantity: product.quantity, 
     });
   });
+
+  console.log('RESULT', result);
     
   return result;
 };
