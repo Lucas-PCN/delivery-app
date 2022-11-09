@@ -1,10 +1,10 @@
 .table-user {
-  margin-top: 40px;
   width: 100%;
 }
 
 .table-user thead {
   background: rgb(115, 112, 245);
+  color: white;
 }
 
 .table-user tr {
