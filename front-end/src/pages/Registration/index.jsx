@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-
 import { AuthContext } from '../../providers/Auth';
+
+import './style.css';
 
 function Registration() {
   const history = useHistory();
@@ -45,7 +46,7 @@ function Registration() {
     <div className="registration-container">
       <div className="registration-content">
         <h1>Cadastro</h1>
-        <form>
+        <form className="form-register">
           <label htmlFor="nome">
             <p>Nome</p>
             <input
