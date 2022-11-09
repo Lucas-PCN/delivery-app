@@ -50,11 +50,11 @@ function Users() {
       </thead>
       <tbody>
         {adminUsers.map((user, index) => (
-          <tr key={ user.id }>
+          <tr key={ index }>
             <td
               data-testid={ `admin_manage__element-user-table-item-number-${index}` }
             >
-              {user.id}
+              {index + 1}
             </td>
             <td
               data-testid={ `admin_manage__element-user-table-name-${index}` }
