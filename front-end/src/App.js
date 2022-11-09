@@ -17,7 +17,7 @@ function App() {
         <Route path="/customer/orders" component={ Sales } />
         <Route path="/customer/products" component={ Products } />
         <Route index path="/customer/checkout" component={ Checkout } />
-        <Route path="/admin/manager" component={ Admin } />
+        <Route path="/admin/manage" component={ Admin } />
         {/* <Route index path="/customer/orders/:id" component={ Orders } /> */}
         <Route path="/" render={ () => <Redirect to="/login" /> } />
       </Switch>
