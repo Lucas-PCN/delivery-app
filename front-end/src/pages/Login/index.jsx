@@ -32,7 +32,10 @@ function Login() {
       password: login.password,
     }).then((res) => {
       localStorage.setItem('user', JSON.stringify(res.data));
-      history.push('/customer/products');
+
+      if (res.data.role === 'administrator') return history.push('/admin/manage');
+
+      return history.push('/customer/products');
     }).catch((err) => {
       setErro(true);
       setErrorMessage(err.message);
