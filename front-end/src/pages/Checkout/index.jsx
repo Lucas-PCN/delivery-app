@@ -55,7 +55,7 @@ function Checkout() {
       }, { headers: { authorization: user.token } })
       .then((res) => {
         console.log('RESPONSE', res);
-        history.push(`/customer/orders/${res.data.id}`);
+        history.push({ pathname: `/customer/orders/${res.data.id}`, state: res.data.id });
       })
       .catch((err) => {
         setErro(true);
@@ -65,14 +65,14 @@ function Checkout() {
       });
   };
 
-  useEffect(() => {
-    const totalPrice = () => {
-      const total = cart
-        .reduce((acc, cur) => acc + (Number(cur.price) * cur.quantity), 0);
-      setCheckout({ ...checkout, totalPrice: total.toFixed(2).replace('.', ',') });
-    };
-    totalPrice();
-  }, [cart]);
+  // useEffect(() => {
+  //   const totalPrice = () => {
+  //     const total = cart
+  //       .reduce((acc, cur) => acc + (Number(cur.price) * cur.quantity), 0);
+  //     setCheckout({ ...checkout, totalPrice: total.toFixed(2).replace('.', ',') });
+  //   };
+  //   totalPrice();
+  // }, [cart]);
 
   return (
     <div className="checkout-container">
@@ -81,14 +81,14 @@ function Checkout() {
         <div className="request-content">
           <p className="order-title">Finalizar Pedido</p>
           <div className="list-products-table">
-            <Table />
+            <Table isButtonNeeded dataTest="customer_checkout" />
           </div>
-          <div
+          {/* <div
             data-testid="customer_checkout__element-order-total-price"
             className="total"
           >
             {`Total: R$${checkout.totalPrice}`}
-          </div>
+          </div> */}
         </div>
         <div className="delivery-content">
           <p>Detalhes e Endereço para Entrega</p>

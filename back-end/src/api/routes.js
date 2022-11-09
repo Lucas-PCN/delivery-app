@@ -33,9 +33,9 @@ route.get('/customer-orders/:id', salesCustomer);
 // Realizar a compra do pedido
 route.post('/checkout', autenticaToken, createCheckout);
 // Detalhes do pedido, todos tem acesso.
-route.get('/orders/:id', autenticaToken, getSalesByPk);
+route.get('/customer/orders/:id', autenticaToken, getSalesByPk);
 // Atualiza o campo status do pedido
-route.patch('/orders/:id', updateStatus);
+route.patch('/customer/orders/:id', updateStatus);
 // O vendedor tem acesso a todos os pedidos
 route.get('/orders', autenticaToken, getSales);
 

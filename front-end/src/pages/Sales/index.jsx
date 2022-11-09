@@ -38,10 +38,11 @@ function Sales() {
     <div className="sales-container">
       { loading && <span>Loading...</span>}
       { !loading && <Header />}
-      { !loading && customerSales.map((el) => (
+      { !loading && customerSales.map((el, index) => (
         <SaleCard
           key={ el.id }
           saleId={ el.id }
+          order={ `${index + 1}` }
           status={ el.status }
           saleDate={ el.saleDate }
           totalPrice={ el.totalPrice }
