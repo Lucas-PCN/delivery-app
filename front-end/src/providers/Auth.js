@@ -43,7 +43,7 @@ export function AuthProvider({ children }) {
     name: '',
     email: '',
     password: '',
-    role: 'Cliente',
+    role: 'customer',
   });
 
   useEffect(() => {
