@@ -55,7 +55,7 @@ function Checkout() {
       }, { headers: { authorization: user.token } })
       .then((res) => {
         console.log('RESPONSE', res);
-        history.push(`/customer/orders/${res.data.id}`);
+        history.push({ pathname: `/customer/orders/${res.data.id}`, state: res.data.id });
       })
       .catch((err) => {
         setErro(true);
@@ -81,7 +81,7 @@ function Checkout() {
         <div className="request-content">
           <p className="order-title">Finalizar Pedido</p>
           <div className="list-products-table">
-            <Table />
+            <Table isButtonNeeded />
           </div>
           <div
             data-testid="customer_checkout__element-order-total-price"

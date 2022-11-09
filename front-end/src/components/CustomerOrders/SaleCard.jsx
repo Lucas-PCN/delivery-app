@@ -22,6 +22,7 @@ export default function SaleCard({
   const onClick = (value) => {
     history.push({
       pathname: `/customer/orders/${value}`,
+      state: value,
     });
   };
 
