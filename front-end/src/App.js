@@ -4,8 +4,10 @@ import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
 import Products from './pages/Products';
-import Orders from './pages/Orders';
-import Sales from './pages/Sales';
+import OrdersCustomerDetails from './pages/OrdersCustomerDetails';
+import OrdersCustomer from './pages/OrdersCustomer';
+import OrdersSellerDetails from './pages/OrdersSellerDetails';
+import OrdersSeller from './pages/OrdersSeller';
 import Admin from './pages/Admin';
 
 function App() {
@@ -13,8 +15,10 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/admin/manager" component={ Admin } />
-        <Route exact path="/customer/orders/:id" component={ Orders } />
-        <Route exact path="/customer/orders" component={ Sales } />
+        <Route exact path="/seller/orders/:id" component={ OrdersSellerDetails } />
+        <Route exact path="/seller/orders" component={ OrdersSeller } />
+        <Route exact path="/customer/orders/:id" component={ OrdersCustomerDetails } />
+        <Route exact path="/customer/orders" component={ OrdersCustomer } />
         <Route exact path="/customer/checkout" component={ Checkout } />
         <Route exact path="/customer/products" component={ Products } />
         <Route exact path="/register" component={ Registration } />

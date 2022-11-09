@@ -2,12 +2,15 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export default function SaleCard({
+export default function Card({
   saleId,
   order,
   status,
   saleDate,
-  totalPrice }) {
+  totalPrice,
+  deliveryAddress,
+  deliveryNumber,
+}) {
   const history = useHistory();
 
   const handleSaleDate = (date) => {
@@ -21,8 +24,8 @@ export default function SaleCard({
 
   const onClick = (value) => {
     history.push({
-      pathname: `/customer/orders/${value}`,
-      state: value,
+      pathname: `/seller/orders/${value}`,
+      state: order,
     });
   };
 
@@ -33,39 +36,39 @@ export default function SaleCard({
 
   return (
     <div
-      type="button"
-      key={ saleId }
       onClick={ () => onClick(saleId) }
       aria-hidden="true"
-      data-testid={ `customer_orders__element-order-id-${saleId}` }
+      data-testid={ `seller_orders__element-order-id-${saleId}` }
     >
       <section>
-        <span data-testid={ `customer_orders__element-order-id-${order}` }>
+        <span data-testid={ `seller_orders__element-order-id-${order}` }>
           {`Pedido: ${order}`}
         </span>
       </section>
       <section>
-        <span data-testid={ `customer_orders__element-delivery-status-${order}` }>
+        <span data-testid={ `seller_orders__element-delivery-status-${order}` }>
           {status}
         </span>
       </section>
       <section>
-        <span data-testid={ `customer_orders__element-order-date-${order}` }>
+        <span data-testid={ `seller_orders__element-order-date-${order}` }>
           {handleSaleDate(saleDate)}
         </span>
       </section>
       <section>
-        <span data-testid={ `customer_orders__element-card-price-${order}` }>
+        <span data-testid={ `seller_orders__element-card-price-${order}` }>
           {changeTotalPrice(totalPrice)}
+        </span>
+      </section>
+      <section>
+        <span data-testid={ `seller_orders__element-card-address-${order}` }>
+          { `${deliveryAddress}, ${deliveryNumber}`}
         </span>
       </section>
     </div>
   );
 }
 
-SaleCard.propTypes = {
-  saleId: PropTypes.number,
-  status: PropTypes.string,
-  saleDate: PropTypes.string,
-  totalPrice: PropTypes.string,
+Card.propTypes = {
+  saleId: PropTypes.string,
 }.isRequired;

@@ -56,6 +56,7 @@ function Header() {
               className="btn-to-logout"
               to="/login"
               data-testid="customer_products__element-navbar-link-logout"
+              onClick={ () => logout() }
             >
               Sair
             </Link>
