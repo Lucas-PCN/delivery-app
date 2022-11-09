@@ -30,9 +30,12 @@ export default function OrderDetails() {
     };
     const fetchOrderDetail = async (token, value) => {
       const url = `http://www.localhost:3001/customer/orders/${value}`;
+      const url2 = 'http://www.localhost:3001/admin/manage';
       const header = { headers: { Authorization: `${token}` } };
       const { data } = await axios.get(url, header);
+      const result = await axios.get(url2, header);
       const { products, saleDate, sellerId, status } = data;
+      const sellerName = result.data.find((obj) => obj.id === sellerId);
       const handleOrder = () => {
         const newOrder = [];
         if (products) {
@@ -46,7 +49,7 @@ export default function OrderDetails() {
       };
       setOrder(handleOrder());
       setDate(saleDate);
-      setSeller(sellerId);
+      setSeller(sellerName.name);
       setSaleStatus(status);
     };
     const token = getUserInfo();
@@ -120,7 +123,7 @@ export default function OrderDetails() {
         MARCAR COMO ENTREGUE
       </button>
       {!loading
-      && <Table isButtonNeeded={ false } />}
+      && <Table isButtonNeeded={ false } dataTest="customer_order_details" />}
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from '../../providers/Auth';
 import { updateCarsRemove } from '../../ultils/localStorage';
 
-function Table({ isButtonNeeded }) {
-  const { cart, setCart } = useContext(AuthContext);
+function Table({ isButtonNeeded, dataTest }) {
+  const { cart, setCart, checkout, setCheckout } = useContext(AuthContext);
   const prefix = 'customer_checkout__';
 
   const removeProduct = (index) => {
@@ -14,8 +14,14 @@ function Table({ isButtonNeeded }) {
     updateCarsRemove(objs);
   };
 
-  const total = cart.reduce((acc, curr) => acc + Number(curr.subTotal), 0);
-  const totalCorrected = total.toFixed(2).replace('.', ',');
+  useEffect(() => {
+    const totalPrice = () => {
+      const total = cart
+        .reduce((acc, cur) => acc + (Number(cur.price) * cur.quantity), 0);
+      setCheckout({ ...checkout, totalPrice: total.toFixed(2).replace('.', ',') });
+    };
+    totalPrice();
+  }, [cart]);
 
   return (
     <section>
@@ -74,12 +80,12 @@ function Table({ isButtonNeeded }) {
             </tr>))}
         </tbody>
       </table>
-      <h3
-        data-testid={ `${prefix}element-order-total-price` }
+      <div
+        data-testid={ `${dataTest}__element-order-total-price` }
+        className="total"
       >
-        {`Total: R$${totalCorrected}`}
-
-      </h3>
+        {`Total: R$${checkout.totalPrice}`}
+      </div>
     </section>
   );
 }
@@ -88,4 +94,5 @@ export default Table;
 
 Table.propTypes = {
   isButtonNeeded: PropTypes.bool.isRequired,
+  dataTest: PropTypes.string.isRequired,
 };
