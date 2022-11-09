@@ -6,8 +6,6 @@ import LogoImage from '../../images/logo.png';
 import './style.css';
 import { AuthContext } from '../../providers/Auth';
 
-import './style.css';
-
 function Registration() {
   const history = useHistory();
   const [errorRegistration, setErrorRegistration] = useState('');
@@ -49,11 +47,9 @@ function Registration() {
     <div className="registration-container">
       <div className="registration-content">
         <form className="form-register">
-        <div className="info">
-          <img src={ LogoImage } alt="LogoImage" />
-        </div>
-        {/* <h1 className="">Cadastro</h1> */}
-        <form className="form-registration">
+          <div className="info">
+            <img src={ LogoImage } alt="LogoImage" />
+          </div>
           <label htmlFor="nome">
             <p>Nome completo</p>
             <input
