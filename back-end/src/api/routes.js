@@ -12,6 +12,7 @@ const loginController = require('../controllers/loginController');
 const productsController = require('../controllers/products.controller');
 const registerController = require('../controllers/registerController');
 const { validateLogin, validateRegister, autenticaToken } = require('../middlewares');
+const validateCheckout = require('../middlewares/validateCheckout');
 
 const route = express();
 
@@ -31,7 +32,7 @@ route.post('/products', autenticaToken, productsController.createProducts);
 // O cliente tem acesso ao seu proprio pedido, necessário enviar um id do cliente para headers.customer
 route.get('/customer-orders/:id', salesCustomer);
 // Realizar a compra do pedido
-route.post('/checkout', autenticaToken, createCheckout);
+route.post('/checkout', autenticaToken, validateCheckout, createCheckout);
 // Detalhes do pedido, todos tem acesso.
 route.get('/orders/:id', autenticaToken, getSalesByPk);
 // Atualiza o campo status do pedido
