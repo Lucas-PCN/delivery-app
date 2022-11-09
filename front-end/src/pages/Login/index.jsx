@@ -44,11 +44,10 @@ function Login() {
       password: login.password,
     }).then((res) => {
       localStorage.setItem('user', JSON.stringify(res.data));
+
+      if (res.data.role === 'administrator') return history.push('/admin/manage');
       if (res.data.role === 'seller') {
         return history.push('/seller/orders');
-      }
-      if (res.data.role === 'administrator') {
-        return history.push('/admin/manage');
       }
       return history.push('/customer/products');
     }).catch((err) => {

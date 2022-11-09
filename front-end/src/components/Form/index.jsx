@@ -14,7 +14,7 @@ function Form() {
     setAdminUsers,
   } = useContext(AuthContext);
 
-  const selectOptions = ['Cliente', 'Administrator'];
+  const selectOptions = ['customer', 'seller'];
 
   const createNewUser = async () => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -24,22 +24,20 @@ function Form() {
       headers: { authorization: user.token },
     });
 
-    try {
-      await instance.post('/admin/manage', adminCreateUser);
-
+    await instance.post('/admin/manage', adminCreateUser).then(async () => {
       setAdminCreateUser({
         name: '',
         email: '',
         password: '',
-        role: 'Cliente',
+        role: 'customer',
       });
       const responseUsers = await instance.get('/admin/manage').then((res) => res.data);
-      console.log(responseUsers);
+
       return setAdminUsers(responseUsers);
-    } catch (error) {
-      setMessageErrorAdminCreate(error.message);
+    }).catch((err) => {
+      setMessageErrorAdminCreate(err.message);
       return setErrorCreateAdmin(true);
-    }
+    });
   };
 
   return (
@@ -49,7 +47,9 @@ function Form() {
         <input
           data-testid="admin_manage__input-name"
           type="text"
+          placeholder="Nome"
           name="nome"
+          value={ adminCreateUser.name }
           onChange={
             (e) => setAdminCreateUser({ ...adminCreateUser, name: e.target.value })
           }
@@ -61,6 +61,8 @@ function Form() {
           data-testid="admin_manage__input-email"
           type="text"
           name="email"
+          placeholder="E-mail"
+          value={ adminCreateUser.email }
           onChange={
             (e) => setAdminCreateUser({ ...adminCreateUser, email: e.target.value })
           }
@@ -72,6 +74,8 @@ function Form() {
           data-testid="admin_manage__input-password"
           type="text"
           name="password"
+          placeholder="Password"
+          value={ adminCreateUser.password }
           onChange={
             (e) => setAdminCreateUser({ ...adminCreateUser, password: e.target.value })
           }
@@ -92,6 +96,9 @@ function Form() {
         </select>
       </label>
       <button
+        className={
+          (buttonAdminCreateDisable) ? 'btn-create-desability' : 'btn-create-ability'
+        }
         data-testid="admin_manage__button-register"
         disabled={ buttonAdminCreateDisable }
         type="button"

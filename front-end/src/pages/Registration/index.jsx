@@ -4,8 +4,9 @@ import axios from 'axios';
 import LogoImage from '../../images/logo.png';
 
 import './style.css';
-
 import { AuthContext } from '../../providers/Auth';
+
+import './style.css';
 
 function Registration() {
   const history = useHistory();
@@ -47,6 +48,7 @@ function Registration() {
   return (
     <div className="registration-container">
       <div className="registration-content">
+        <form className="form-register">
         <div className="info">
           <img src={ LogoImage } alt="LogoImage" />
         </div>
