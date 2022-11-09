@@ -3,6 +3,9 @@
 }
 
 .admin-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
   margin: 20px auto;
   max-width: 1220px;
 }
