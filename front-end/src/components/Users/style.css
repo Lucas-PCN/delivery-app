@@ -1,0 +1,34 @@
+.table-user {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.table-user thead {
+  background: rgb(115, 112, 245);
+}
+
+.table-user tr {
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  height: 45px;
+}
+
+.table-user tbody td {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn-delete {
+  background: rgba(255, 0, 0, 0.562);
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+tr:nth-child( even ) {
+  background: rgb(211, 209, 209);
+}

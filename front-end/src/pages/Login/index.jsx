@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import LogoImage from '../../images/logo.png';
@@ -11,6 +11,18 @@ import './style.css';
 
 function Login() {
   const history = useHistory();
+
+  useEffect(() => {
+    const getUserInfo = () => {
+      if (localStorage.getItem('user')) {
+        const { role } = JSON.parse(localStorage.getItem('user'));
+        if (role === 'customer') {
+          return history.push('/customer/products');
+        }
+      }
+    };
+    getUserInfo();
+  }, [history]);
 
   const {
     login,
@@ -32,7 +44,13 @@ function Login() {
       password: login.password,
     }).then((res) => {
       localStorage.setItem('user', JSON.stringify(res.data));
-      history.push('/customer/products');
+      if (res.data.role === 'seller') {
+        return history.push('/seller/orders');
+      }
+      if (res.data.role === 'administrator') {
+        return history.push('/admin/manage');
+      }
+      return history.push('/customer/products');
     }).catch((err) => {
       setErro(true);
       setErrorMessage(err.message);

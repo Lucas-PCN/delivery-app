@@ -21,8 +21,8 @@ function Sales() {
       setUserToken(token);
     };
 
-    const fetchCustomerSales = async () => {
-      const url = 'http://www.localhost:3001/customer-orders/5';
+    const fetchCustomerSales = async (id) => {
+      const url = `http://www.localhost:3001/customer-orders/${id}`;
       // const customerId = { id: userId };
       // const header = { headers: { Authorization: `${userToken}` } };
       const salesArray = await axios.get(url);
@@ -30,7 +30,7 @@ function Sales() {
       setCustomerSales(salesArray.data);
     };
     getUserInfo();
-    fetchCustomerSales();
+    fetchCustomerSales(idUser);
     setLoading(false);
   }, [idUser, history, userToken]);
 
@@ -38,10 +38,11 @@ function Sales() {
     <div className="sales-container">
       { loading && <span>Loading...</span>}
       { !loading && <Header />}
-      { !loading && customerSales.map((el) => (
+      { !loading && customerSales.map((el, index) => (
         <SaleCard
           key={ el.id }
           saleId={ el.id }
+          order={ `${index + 1}` }
           status={ el.status }
           saleDate={ el.saleDate }
           totalPrice={ el.totalPrice }

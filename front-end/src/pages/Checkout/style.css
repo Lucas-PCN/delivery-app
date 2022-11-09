@@ -70,7 +70,7 @@ form {
   width: 100%;
 }
 
-label {
+form label {
   align-items: self-start;
   color: #32264d;
   display: flex;
@@ -109,7 +109,7 @@ p {
   width: 30%;
 }
 
-select {
+form select {
   border: 1px solid darkcyan;
   border-radius: 4px;
   height: 40px;

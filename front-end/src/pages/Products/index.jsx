@@ -19,11 +19,11 @@ function Products() {
   const history = useHistory();
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'));
 
     const instance = axios.create({
       baseURL: 'http://localhost:3001/',
-      headers: { authorization: token.token },
+      headers: { authorization: user.token },
     });
 
     const getProducts = async () => {
@@ -65,7 +65,7 @@ function Products() {
 
     setTotalPrice(total);
     setCart(cartList);
-  }, [products]);
+  }, [products, setCart]);
 
   useEffect(() => {
     if (totalPrice > 0) return setButtonDisable(false);
@@ -117,11 +117,11 @@ function Products() {
           disabled={ buttonDisable }
           onClick={ () => redirectToCart() }
         >
-          <tag
+          <div
             data-testid="customer_products__checkout-bottom-value"
           >
             {totalPrice.toFixed(2).replace('.', ',')}
-          </tag>
+          </div>
         </button>
       </div>
       <div className="product-content">
