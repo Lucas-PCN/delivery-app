@@ -3,8 +3,6 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../providers/Auth';
 
-import './style.css';
-
 function Registration() {
   const history = useHistory();
   const [errorRegistration, setErrorRegistration] = useState('');
