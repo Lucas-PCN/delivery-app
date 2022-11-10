@@ -1,9 +1,12 @@
 const { sales, users, salesProducts, products } = require('../database/models');
+const { verificaToken } = require('../utils/jwt');
 
 // const timeElapsed = Date.now();
 // const today = new Date(timeElapsed);
 const userNotFound = { status: 404, message: 'Cliente não encontrado!' };
 const sellerNotFound = { status: 404, message: 'Funcionário não encontrado!' };
+const notSeller = { status: 404, message: 'Você não é um vendedor!' };
+
 const productNotFound = { status: 404, message: 'Produto não encontrado!' };
 const saleNotFound = { status: 404, message: 'Venda não encontrada!' };
 
@@ -29,8 +32,10 @@ const validationPro = async (ob) => {
 };
 
 // rota para o vendedor ver as vendas de todos os usuários.
-const getSalesProducts = async () => {
-  const rows = await sales.findAll();
+const getSalesProducts = async (token) => {
+  const isAdmin = verificaToken(token);
+  if (isAdmin.data.role !== 'seller') throw notSeller;
+  const rows = await sales.findAll({ where: { sellerId: isAdmin.data.id } });
   return rows; 
 };
 
