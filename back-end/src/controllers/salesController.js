@@ -15,9 +15,10 @@ const createCheckout = async (req, res, next) => {
   }
 };
 
-const getSales = async (_req, res, next) => {
+const getSales = async (req, res, next) => {
   try {
-    const rows = await getSalesProducts();
+    const token = req.headers.authorization;   
+    const rows = await getSalesProducts(token);
     return res.status(200).json(rows);
   } catch (error) {
     next(error);
