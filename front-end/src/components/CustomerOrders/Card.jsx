@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export default function SaleCard({
+export default function Card({
   saleId,
   order,
   status,
@@ -33,8 +33,6 @@ export default function SaleCard({
 
   return (
     <div
-      type="button"
-      key={ saleId }
       onClick={ () => onClick(saleId) }
       aria-hidden="true"
       data-testid={ `customer_orders__element-order-id-${saleId}` }
@@ -63,7 +61,7 @@ export default function SaleCard({
   );
 }
 
-SaleCard.propTypes = {
+Card.propTypes = {
   saleId: PropTypes.number,
   status: PropTypes.string,
   saleDate: PropTypes.string,

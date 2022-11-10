@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../components/Header';
-import SaleCard from '../../components/CustomerOrders/SaleCard';
+import Card from '../../components/CustomerOrders/Card';
 
-function Sales() {
+function CustomerOrders() {
   const [customerSales, setCustomerSales] = useState([]);
   const [loading, setLoading] = useState(true);
   const [idUser, setIdUser] = useState();
@@ -26,7 +26,6 @@ function Sales() {
       // const customerId = { id: userId };
       // const header = { headers: { Authorization: `${userToken}` } };
       const salesArray = await axios.get(url);
-      console.log(salesArray);
       setCustomerSales(salesArray.data);
     };
     getUserInfo();
@@ -39,7 +38,7 @@ function Sales() {
       { loading && <span>Loading...</span>}
       { !loading && <Header />}
       { !loading && customerSales.map((el, index) => (
-        <SaleCard
+        <Card
           key={ el.id }
           saleId={ el.id }
           order={ `${index + 1}` }
@@ -52,4 +51,4 @@ function Sales() {
   );
 }
 
-export default Sales;
+export default CustomerOrders;
