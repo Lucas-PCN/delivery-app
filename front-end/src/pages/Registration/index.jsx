@@ -44,7 +44,7 @@ function Registration() {
 
   return (
     <div className="registration-container">
-      <div className="registration-content">
+      <div className="register-content">
         <h1>Cadastro</h1>
         <form className="form-register">
           <label htmlFor="nome">
