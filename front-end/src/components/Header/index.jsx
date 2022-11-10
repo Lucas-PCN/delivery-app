@@ -20,7 +20,7 @@ function Header() {
     }
 
     setUser(userLogado);
-  }, [history]);
+  }, [history, setUser]);
 
   return (
     <div className="header-container">

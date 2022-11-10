@@ -36,6 +36,7 @@ export default function Card({
 
   return (
     <div
+      type="button"
       onClick={ () => onClick(saleId) }
       aria-hidden="true"
       data-testid={ `seller_orders__element-order-id-${saleId}` }

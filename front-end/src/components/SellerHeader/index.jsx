@@ -26,14 +26,15 @@ function SellerHeader() {
           >
             { user.name }
           </h3>
-          <a
+          <Link
             className="btn-to-logout"
-            href="/login"
+            to="/login"
             data-testid="customer_products__element-navbar-link-logout"
-            onClick={ () => logout() }
           >
-            Sair
-          </a>
+            <button onClick={ () => logout() } type="button">
+              Sair
+            </button>
+          </Link>
         </div>
       </div>
     </div>

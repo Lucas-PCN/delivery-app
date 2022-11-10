@@ -35,18 +35,20 @@ function SellerOrders() {
     <div className="sales-container">
       { loading && <span>Loading...</span>}
       { !loading && <SellerHeader />}
-      { !loading && sellerOrder.map((el, index) => (
-        <Card
-          key={ el.id }
-          saleId={ el.id }
-          order={ `${index + 1}` }
-          status={ el.status }
-          saleDate={ el.saleDate }
-          totalPrice={ el.totalPrice }
-          deliveryAddress={ el.deliveryAddress }
-          deliveryNumber={ el.deliveryNumber }
-        />
-      ))}
+      <div className="cards-container">
+        { !loading && sellerOrder.map((el, index) => (
+          <Card
+            key={ el.id }
+            saleId={ el.id }
+            order={ `${index + 1}` }
+            status={ el.status }
+            saleDate={ el.saleDate }
+            totalPrice={ el.totalPrice }
+            deliveryAddress={ el.deliveryAddress }
+            deliveryNumber={ el.deliveryNumber }
+          />
+        ))}
+      </div>
     </div>
   );
 }
