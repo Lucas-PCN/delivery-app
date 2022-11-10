@@ -29,7 +29,7 @@ function Admin() {
         </div>
         <h1>Cadastrar novo usuário</h1>
         <Form />
-        <h1>Usuários ativos</h1>
+        <h1>Lista de usuários</h1>
         <Users />
       </div>
     </div>
