@@ -48,18 +48,18 @@ function Header() {
           >
             { user.name }
           </h3>
-          <button
-            onClick={ () => logout() }
-            type="button"
+          <Link
+            className="btn-to-logout"
+            to="/login"
+            data-testid="customer_products__element-navbar-link-logout"
           >
-            <Link
-              className="btn-to-logout"
-              to="/login"
-              data-testid="customer_products__element-navbar-link-logout"
+            <button
+              onClick={ () => logout() }
+              type="button"
             >
               Sair
-            </Link>
-          </button>
+            </button>
+          </Link>
         </div>
       </div>
     </div>

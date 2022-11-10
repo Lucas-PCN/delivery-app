@@ -12,14 +12,17 @@ function Checkout() {
   const {
     cart,
     // setUser,
-    // user,
+    user,
     setSellers,
     checkout,
+    error,
+    errorMessage,
     setCart,
     setCheckout,
     setErro, setErrorMessage } = useContext(AuthContext);
 
   useEffect(() => {
+    setErro(false);
     const token = JSON.parse(localStorage.getItem('user'));
     const instance = axios.create({
       baseURL: 'http://localhost:3001/',
@@ -42,8 +45,35 @@ function Checkout() {
     getManage();
   }, []);
 
+  const validationDelivery = () => {
+    const dataCheckout = {
+      userId: user.id,
+      sellerId: checkout.sellerId,
+      totalPrice: checkout.totalPrice.replace(',', '.'),
+      deliveryAddress: checkout.address,
+      deliveryNumber: Number(checkout.number),
+      products: cart,
+    };
+    const keys = Object.keys(dataCheckout);
+
+    if (keys.find((key) => !dataCheckout[key] || dataCheckout.products.length === 0)) {
+      return dataCheckout;
+    }
+
+    return true;
+  };
+
   const handleSubmit = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    if (validationDelivery() !== true) {
+      const keys = Object.keys(validationDelivery());
+      const res = keys
+        .find((key) => !validationDelivery()[key]) === 'deliveryAddress'
+        ? 'endereço' : 'numero';
+      setErro(true);
+      setErrorMessage(`Nenhum valor foi passado para ${
+        res && keys.find((key) => !validationDelivery()[key]) ? res : 'carrinho'}`);
+      return;
+    }
     axios
       .post('http://localhost:3001/checkout', {
         userId: user.id,
@@ -55,7 +85,7 @@ function Checkout() {
       }, { headers: { authorization: user.token } })
       .then((res) => {
         console.log('RESPONSE', res);
-        history.push(`/customer/orders/${res.data.id}`);
+        history.push({ pathname: `/customer/orders/${res.data.id}`, state: res.data.id });
       })
       .catch((err) => {
         setErro(true);
@@ -65,14 +95,14 @@ function Checkout() {
       });
   };
 
-  useEffect(() => {
-    const totalPrice = () => {
-      const total = cart
-        .reduce((acc, cur) => acc + (Number(cur.price) * cur.quantity), 0);
-      setCheckout({ ...checkout, totalPrice: total.toFixed(2).replace('.', ',') });
-    };
-    totalPrice();
-  }, [cart]);
+  // useEffect(() => {
+  //   const totalPrice = () => {
+  //     const total = cart
+  //       .reduce((acc, cur) => acc + (Number(cur.price) * cur.quantity), 0);
+  //     setCheckout({ ...checkout, totalPrice: total.toFixed(2).replace('.', ',') });
+  //   };
+  //   totalPrice();
+  // }, [cart]);
 
   return (
     <div className="checkout-container">
@@ -81,14 +111,14 @@ function Checkout() {
         <div className="request-content">
           <p className="order-title">Finalizar Pedido</p>
           <div className="list-products-table">
-            <Table />
+            <Table isButtonNeeded dataTest="customer_checkout" />
           </div>
-          <div
+          {/* <div
             data-testid="customer_checkout__element-order-total-price"
             className="total"
           >
             {`Total: R$${checkout.totalPrice}`}
-          </div>
+          </div> */}
         </div>
         <div className="delivery-content">
           <p>Detalhes e Endereço para Entrega</p>
@@ -100,6 +130,14 @@ function Checkout() {
           >
             FINALIZAR PEDIDO
           </button>
+          <div
+            data-testid="common_register__element-invalid_register"
+            className={ error ? 'span-error' : 'span-error-disable' }
+          >
+            <h4>
+              {errorMessage}
+            </h4>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import LogoImage from '../../images/logo.png';
+
+import './style.css';
 import { AuthContext } from '../../providers/Auth';
 
 function Registration() {
@@ -42,11 +45,13 @@ function Registration() {
 
   return (
     <div className="registration-container">
-      <div className="register-content">
-        <h1>Cadastro</h1>
+      <div className="registration-content">
         <form className="form-register">
+          <div className="info">
+            <img src={ LogoImage } alt="LogoImage" />
+          </div>
           <label htmlFor="nome">
-            <p>Nome</p>
+            <p>Nome completo</p>
             <input
               name="nome"
               type="text"
@@ -76,7 +81,7 @@ function Registration() {
             <input
               name="senha"
               type="password"
-              placeholder="Senha"
+              placeholder="+5 senha"
               onChange={ ({ target }) => setRegister({
                 ...register,
                 password: target.value,
@@ -85,14 +90,15 @@ function Registration() {
               data-testid="common_register__input-password"
             />
           </label>
-          <div className="btn-cadastro">
+          <div className="btn-registration">
             <button
               type="submit"
+              // className="btn-registration"
               disabled={ validationRegister() }
               onClick={ handleClick }
               data-testid="common_register__button-register"
             >
-              CADASTRAR
+              Cadastro
             </button>
           </div>
         </form>
