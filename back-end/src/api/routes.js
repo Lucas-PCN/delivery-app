@@ -38,11 +38,11 @@ route.get('/customer/orders/:id', autenticaToken, getSalesByPk);
 // Atualiza o campo status do pedido
 route.patch('/customer/orders/:id', updateStatus);
 // O vendedor tem acesso a todos os pedidos
-route.get('/orders', autenticaToken, getSales);
+route.get('/seller/orders', autenticaToken, getSales);
 
 // rota para o admin gerenciar usuarios
 // Busca todos os usuários.
-route.get('/admin/manage', autenticaToken, registerController.getAll);
+route.get('/admin/manage', registerController.getAll);
 // Cria um novo usuário na pagina do administrador
 route.post('/admin/manage', autenticaToken, validateRegister, registerController.create);
 // Deleta um usuário pelo ID

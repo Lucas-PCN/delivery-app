@@ -1,61 +1,61 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../components/Header';
 import Table from '../../components/Table';
+import { AuthContext } from '../../providers/Auth';
 
 export default function OrderDetails() {
-  const [order, setOrder] = useState([]);
-  const [date, setDate] = useState();
-  const [seller, setSeller] = useState();
-  const [saleStatus, setSaleStatus] = useState();
-  const [loading, setLoading] = useState(true);
-  const [userToken, setUserToken] = useState();
+  const { setOrderCustomer } = useContext(AuthContext);
+  const [seller, setSeller] = useState([]);
+  const [saleStatus, setSaleStatus] = useState('');
   const [deliveryIsDisabled, setDeliveryIsDisabled] = useState(false);
+  const [sellerName, setSellerName] = useState('');
 
   const { id } = useParams();
-  const history = useHistory();
-  const { location: { state } } = history;
 
   const dataTest = 'customer_order_details__element-order-details-label';
 
   useEffect(() => {
-    const getUserInfo = () => {
-      if (!localStorage.getItem('user')) {
-        return history.push('/login');
-      }
-      const { token } = JSON.parse(localStorage.getItem('user'));
-      setUserToken(token);
-      return token;
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    const instance = axios.create({
+      baseURL: 'http://localhost:3001/',
+      headers: { authorization: user.token },
+    });
+
+    const getPedidos = async () => {
+      await instance.get(`customer/orders/${id}`).then((res) => {
+        setSeller(res.data);
+        setSaleStatus(res.data.status);
+        setOrderCustomer(res.data.products);
+      }).catch((err) => console.log(err));
     };
-    const fetchOrderDetail = async (token, value) => {
-      const url = `http://www.localhost:3001/customer/orders/${value}`;
-      const url2 = 'http://www.localhost:3001/admin/manage';
-      const header = { headers: { Authorization: `${token}` } };
-      const { data } = await axios.get(url, header);
-      const result = await axios.get(url2, header);
-      const { products, saleDate, sellerId, status } = data;
-      const sellerName = result.data.find((obj) => obj.id === sellerId);
-      const handleOrder = () => {
-        const newOrder = [];
-        if (products) {
-          products.forEach((el) => {
-            const { salesProducts: { quantity }, price, ...remaingInfo } = el;
-            const subTotal = (quantity * price);
-            newOrder.push({ quantity, subTotal, price, ...remaingInfo });
-          });
-        }
-        return newOrder;
-      };
-      setOrder(handleOrder());
-      setDate(saleDate);
-      setSeller(sellerName.name);
-      setSaleStatus(status);
+
+    getPedidos();
+  }, [id, setOrderCustomer]);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    const instance = axios.create({
+      baseURL: 'http://localhost:3001/',
+      headers: { authorization: user.token },
+    });
+
+    const getSellerName = async () => {
+      console.log(seller);
+      await instance.get('/admin/manage').then(
+        (res) => {
+          const resData = res.data;
+          const responseSellerName = resData.find((obj) => obj.id === seller.sellerId);
+          return setSellerName(responseSellerName.name);
+        },
+      ).catch((err) => err);
     };
-    const token = getUserInfo();
-    fetchOrderDetail(token, id);
-    if (order.length > 0) setLoading(false);
-  }, [id, history, userToken, order]);
+
+    getSellerName();
+  }, [seller]);
 
   useEffect(() => {
     const verifySaleStatus = (value) => {
@@ -87,24 +87,23 @@ export default function OrderDetails() {
   return (
     <div>
       <Header />
-      {loading && <span>Carregando...</span>}
       <table>
         <thead>
           <tr>
             <th
               data-testid={ `${dataTest}-order-id` }
             >
-              {`Pedido: ${state}`}
+              {`Pedido: ${seller.sellerId}`}
             </th>
             <th
               data-testid={ `${dataTest}-seller-name` }
             >
-              {`${seller}`}
+              {`${sellerName}`}
             </th>
             <th
               data-testid={ `${dataTest}-order-date` }
             >
-              {handleSaleDate(date)}
+              {handleSaleDate(seller.saleDate)}
             </th>
             <th
               data-testid={ `${dataTest}-delivery-status-${id}` }
@@ -122,8 +121,7 @@ export default function OrderDetails() {
       >
         MARCAR COMO ENTREGUE
       </button>
-      {!loading
-      && <Table isButtonNeeded={ false } dataTest="customer_order_details" />}
+      <Table isPage="customer" dataTest="customer_order_details" />
     </div>
   );
 }

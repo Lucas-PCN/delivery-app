@@ -30,6 +30,8 @@ export function AuthProvider({ children }) {
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisable, setButtonDisable] = useState(true);
   const [cart, setCart] = useState([]);
+  const [pedido, setPedido] = useState([]);
+  const [orderCustomer, setOrderCustomer] = useState([]);
 
   const [checkout, setCheckout] = useState({
     seller: '',
@@ -82,6 +84,8 @@ export function AuthProvider({ children }) {
     buttonAdminCreateDisable,
     errorCreateAdmin,
     messageErrorAdminCreate,
+    pedido,
+    orderCustomer,
     setLogin,
     setErro,
     setToken,
@@ -97,7 +101,10 @@ export function AuthProvider({ children }) {
     setButtonAdminCreateDisable,
     setErrorCreateAdmin,
     setMessageErrorAdminCreate,
+    setPedido,
+    setOrderCustomer,
   }), [
+    pedido,
     login,
     error,
     token,
@@ -113,6 +120,7 @@ export function AuthProvider({ children }) {
     buttonAdminCreateDisable,
     errorCreateAdmin,
     messageErrorAdminCreate,
+    orderCustomer,
   ]);
 
   useEffect(() => {
