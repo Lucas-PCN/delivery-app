@@ -2,6 +2,9 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import LogoImage from '../../images/logo.png';
+import IconEmail from '../../images/icons/mail.svg';
+import IconUser from '../../images/icons/user.svg';
+import IconLok from '../../images/icons/lock.svg';
 
 import './style.css';
 import { AuthContext } from '../../providers/Auth';
@@ -54,7 +57,7 @@ function Registration() {
         </div>
         <form className="form-register">
           <label htmlFor="nome">
-            <p>Nome</p>
+            <img src={ IconUser } alt="Icon User" />
             <input
               name="nome"
               type="text"
@@ -67,7 +70,7 @@ function Registration() {
             />
           </label>
           <label htmlFor="email">
-            <p>Email</p>
+            <img src={ IconEmail } alt="Icon Email" />
             <input
               name="email"
               type="text"
@@ -80,7 +83,7 @@ function Registration() {
             />
           </label>
           <label htmlFor="email">
-            <p>Senha</p>
+            <img src={ IconLok } alt="Icon Password" />
             <input
               name="senha"
               type="password"
