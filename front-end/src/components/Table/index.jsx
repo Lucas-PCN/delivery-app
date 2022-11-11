@@ -90,7 +90,7 @@ function Table({ isPage, dataTest }) {
                     .toFixed(2).replace('.', ',')
                 }`}
               </td>
-              {isPage && (
+              {(isPage === 'checkout') && (
                 <td
                   data-testid={ `${prefix}element-order-table-remove-${index}` }
                 >
