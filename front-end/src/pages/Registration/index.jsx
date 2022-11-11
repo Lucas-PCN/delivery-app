@@ -46,16 +46,19 @@ function Registration() {
   return (
     <div className="registration-container">
       <div className="registration-content">
-        <form className="form-register">
-          <div className="info">
-            <img src={ LogoImage } alt="LogoImage" />
+        <div className="info">
+          <img src={ LogoImage } alt="LogoImage" />
+          <div className="form-description">
+            <h2>Faça o seu cadastro de forma rápida e fácil.</h2>
           </div>
+        </div>
+        <form className="form-register">
           <label htmlFor="nome">
-            <p>Nome completo</p>
+            <p>Nome</p>
             <input
               name="nome"
               type="text"
-              placeholder="Seu nome"
+              placeholder="Nome completo"
               onChange={
                 ({ target }) => setRegister({ ...register, name: target.value })
               }
@@ -90,10 +93,9 @@ function Registration() {
               data-testid="common_register__input-password"
             />
           </label>
-          <div className="btn-registration">
+          <div className="btn-create">
             <button
               type="submit"
-              // className="btn-registration"
               disabled={ validationRegister() }
               onClick={ handleClick }
               data-testid="common_register__button-register"
@@ -102,14 +104,14 @@ function Registration() {
             </button>
           </div>
         </form>
-        <div
-          data-testid="common_register__element-invalid_register"
-          className={ error ? 'span-error' : 'span-error-disable' }
-        >
-          <h4>
-            {errorRegistration}
-          </h4>
-        </div>
+      </div>
+      <div
+        data-testid="common_register__element-invalid_register"
+        className={ error ? 'span-error' : 'span-error-disable' }
+      >
+        <h4>
+          {errorRegistration}
+        </h4>
       </div>
     </div>
   );
