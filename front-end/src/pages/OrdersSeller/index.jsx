@@ -4,6 +4,8 @@ import axios from 'axios';
 import SellerHeader from '../../components/SellerHeader';
 import Card from '../../components/SellerOrders/Card';
 
+import './style.css';
+
 function SellerOrders() {
   const [sellerOrder, setSellerOrder] = useState([]);
   const [loading, setLoading] = useState(true);
