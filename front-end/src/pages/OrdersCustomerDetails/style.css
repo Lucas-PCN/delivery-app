@@ -1,0 +1,39 @@
+.order-customer-container {
+  width: 100%;
+}
+
+.order-customer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto;
+  max-width: 1220px;
+  padding: 20px;
+}
+
+.order-customer-info {
+  background: white;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  justify-content: space-between;
+  padding: 20px;
+  width: 100%;
+}
+
+.info-header, .info-footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-footer button {
+  background: rgb(89, 221, 122);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 10px;
+}
