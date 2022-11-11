@@ -114,6 +114,9 @@ export default function OrderDetails() {
               type="button"
               onClick={ handleOnClick }
               disabled={ deliveryIsDisabled }
+              className={
+                (deliveryIsDisabled) ? 'btn-delivered-disable' : 'btn-delivered'
+              }
             >
               MARCAR COMO ENTREGUE
             </button>
