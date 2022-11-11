@@ -5,6 +5,8 @@ import SellerHeader from '../../components/SellerHeader';
 import Table from '../../components/Table';
 import { AuthContext } from '../../providers/Auth';
 
+import './style.css';
+
 export default function SellOrderDetails() {
   const { setPedido } = useContext(AuthContext);
   const [seller, setSeller] = useState([]);
@@ -63,51 +65,54 @@ export default function SellOrderDetails() {
   };
 
   return (
-    <div>
+    <div className="orders-details-container">
       <SellerHeader />
-      <table>
-        <thead>
-          <tr>
-            <th
-              data-testid={ `${dataTest}-order-id` }
-            >
+      <div className="orders-details-content">
+        <div className="order-details">
+          <div className="order-details-header">
+            <span data-testid={ `${dataTest}-order-id` }>
               {`Pedido: ${seller.id}`}
-            </th>
-            <th
-              data-testid={ `${dataTest}-order-date` }
-            >
-              {handleSaleDate(seller.saleDate)}
-            </th>
-            <th
-              data-testid={ `${dataTest}-delivery-status` }
-            >
+            </span>
+
+            <span data-testid={ `${dataTest}-delivery-status` }>
               {saleStatus}
-            </th>
-          </tr>
-        </thead>
-      </table>
-      <button
-        data-testid="seller_order_details__button-preparing-check"
-        type="button"
-        onClick={ () => handleOnClick('Preparando') }
-        disabled={ preparingIsDisabled }
-      >
-        PREPARAR PEDIDO
+            </span>
 
-      </button>
-      <button
-        data-testid="seller_order_details__button-dispatch-check"
-        type="button"
-        onClick={ () => handleOnClick('Em Trânsito') }
-        disabled={ dispatchIsDisabled }
-      >
-        SAIU PARA ENTREGA
+            <span data-testid={ `${dataTest}-order-date` }>
+              {handleSaleDate(seller.saleDate)}
+            </span>
+          </div>
 
-      </button>
-      <Table
-        isPage="seller"
-        dataTest="seller_order_details"
-      />
+          <div className="order-details-footer">
+            <button
+              data-testid="seller_order_details__button-preparing-check"
+              type="button"
+              onClick={ () => handleOnClick('Preparando') }
+              disabled={ preparingIsDisabled }
+              className={ (preparingIsDisabled) ? 'btn-prepare-disable' : 'btn-prepare ' }
+            >
+              PREPARAR PEDIDO
+
+            </button>
+            <button
+              data-testid="seller_order_details__button-dispatch-check"
+              type="button"
+              onClick={ () => handleOnClick('Em Trânsito') }
+              disabled={ dispatchIsDisabled }
+              className={ (dispatchIsDisabled) ? 'btn-transit-disable' : 'btn-transit ' }
+            >
+              SAIU PARA ENTREGA
+
+            </button>
+
+          </div>
+
+        </div>
+        <Table
+          isPage="seller"
+          dataTest="seller_order_details"
+        />
+      </div>
     </div>
   );
 }
