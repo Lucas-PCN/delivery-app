@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import LogoImage from '../../images/logo.png';
@@ -11,10 +11,15 @@ import { AuthContext } from '../../providers/Auth';
 
 function Registration() {
   const history = useHistory();
-  const [errorRegistration, setErrorRegistration] = useState('');
+
   const {
     register,
-    setRegister, setErro, error } = useContext(AuthContext);
+    setRegister,
+    errroRegister,
+    setErrorRegister,
+    errroRegisterMessage,
+    setErrorRegisterMessage,
+  } = useContext(AuthContext);
 
   const validationRegister = () => {
     const MIN_PASSWORD = 5;
@@ -40,8 +45,8 @@ function Registration() {
         history.push('/customer/products');
       })
       .catch((err) => {
-        setErro(true);
-        setErrorRegistration(err.message);
+        setErrorRegister(true);
+        setErrorRegisterMessage(err.message);
         // document.location.reload();
       });
   };
@@ -110,10 +115,10 @@ function Registration() {
       </div>
       <div
         data-testid="common_register__element-invalid_register"
-        className={ error ? 'span-error' : 'span-error-disable' }
+        className={ errroRegister ? 'span-error' : 'span-error-disable' }
       >
         <h4>
-          {errorRegistration}
+          {errroRegisterMessage}
         </h4>
       </div>
     </div>
