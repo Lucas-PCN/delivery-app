@@ -1,0 +1,12 @@
+.sales-container {
+  width: 100%;
+}
+
+.card-sale-content {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 20px auto;
+  max-width: 1220px;
+  padding: 20px;
+}
