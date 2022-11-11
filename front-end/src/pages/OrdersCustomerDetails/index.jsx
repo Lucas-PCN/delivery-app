@@ -93,7 +93,7 @@ export default function OrderDetails() {
         <div className="order-customer-info">
           <div className="info-header">
             <span data-testid={ `${dataTest}-order-id` }>
-              {`Pedido: ${seller.sellerId}`}
+              {`Pedido: ${seller.id}`}
             </span>
             <span data-testid={ `${dataTest}-delivery-status-${id}` }>
               {saleStatus}
