@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import SellerHeader from '../../components/SellerHeader';
 import Card from '../../components/SellerOrders/Card';
@@ -7,29 +7,26 @@ import Card from '../../components/SellerOrders/Card';
 function SellerOrders() {
   const [sellerOrder, setSellerOrder] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [idUser, setIdUser] = useState();
-  const [userToken, setUserToken] = useState();
-  const history = useHistory();
+
+  // const history = useHistory();
 
   useEffect(() => {
-    const getUserInfo = () => {
-      if (!localStorage.getItem('user')) {
-        return history.push('/login');
-      }
-      const { id, token } = JSON.parse(localStorage.getItem('user'));
-      setIdUser(id);
-      setUserToken(token);
+    const fetchSellerOrders = async () => {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const instance = axios.create({
+        baseURL: 'http://localhost:3001/',
+        headers: { authorization: user.token },
+      });
+
+      const response = await instance.get('/seller/orders')
+        .then((res) => res.data).catch((err) => err);
+
+      setSellerOrder(response);
     };
-    const fetchSellerOrders = async (id) => {
-      const url = `http://www.localhost:3001/customer-orders/${id}`;
-      // const header = { headers: { Authorization: `${token}` } };
-      const ordersArray = await axios.get(url);
-      setSellerOrder(ordersArray.data);
-    };
-    getUserInfo();
-    fetchSellerOrders(idUser);
+
+    fetchSellerOrders();
     setLoading(false);
-  }, [idUser, history, userToken]);
+  }, []);
 
   return (
     <div className="sales-container">

@@ -49,11 +49,14 @@ function Checkout() {
     const dataCheckout = {
       userId: user.id,
       sellerId: checkout.sellerId,
-      totalPrice: checkout.totalPrice.replace(',', '.'),
+      totalPrice: cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
+        .toString(),
       deliveryAddress: checkout.address,
       deliveryNumber: Number(checkout.number),
       products: cart,
     };
+
+    console.log(dataCheckout);
     const keys = Object.keys(dataCheckout);
 
     if (keys.find((key) => !dataCheckout[key] || dataCheckout.products.length === 0)) {
@@ -78,7 +81,8 @@ function Checkout() {
       .post('http://localhost:3001/checkout', {
         userId: user.id,
         sellerId: checkout.sellerId,
-        totalPrice: checkout.totalPrice.replace(',', '.'),
+        totalPrice: cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
+          .toString(),
         deliveryAddress: checkout.address,
         deliveryNumber: checkout.number,
         products: cart,
@@ -111,7 +115,7 @@ function Checkout() {
         <div className="request-content">
           <p className="order-title">Finalizar Pedido</p>
           <div className="list-products-table">
-            <Table isButtonNeeded dataTest="customer_checkout" />
+            <Table isPage="checkout" dataTest="customer_checkout" />
           </div>
           {/* <div
             data-testid="customer_checkout__element-order-total-price"
@@ -125,7 +129,7 @@ function Checkout() {
           <Delivery />
           <button
             type="button"
-            onClick={ handleSubmit }
+            onClick={ () => handleSubmit() }
             data-testid="customer_checkout__button-submit-order"
           >
             FINALIZAR PEDIDO

@@ -1,57 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import React, { useEffect, useContext, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import SellerHeader from '../../components/SellerHeader';
 import Table from '../../components/Table';
+import { AuthContext } from '../../providers/Auth';
 
 export default function SellOrderDetails() {
-  const [order, setOrder] = useState([]);
-  const [date, setDate] = useState();
-  const [saleStatus, setSaleStatus] = useState();
-  const [loading, setLoading] = useState(true);
-  const [userToken, setUserToken] = useState();
+  const { setPedido } = useContext(AuthContext);
+  const [seller, setSeller] = useState([]);
+  const [saleStatus, setSaleStatus] = useState('');
   const [preparingIsDisabled, setPreparingIsDisabled] = useState(false);
   const [dispatchIsDisabled, setDispatchIsDisabled] = useState(false);
 
-  const { id } = useParams();
-  const history = useHistory();
-  const { location: { state } } = history;
-
   const dataTest = 'seller_order_details__element-order-details-label';
 
+  const { id } = useParams();
   useEffect(() => {
-    const getUserInfo = () => {
-      if (!localStorage.getItem('user')) {
-        return history.push('/login');
-      }
-      const { token } = JSON.parse(localStorage.getItem('user'));
-      setUserToken(token);
-      return token;
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    const instance = axios.create({
+      baseURL: 'http://localhost:3001/',
+      headers: { authorization: user.token },
+    });
+
+    const getPedidos = async () => {
+      await instance.get(`customer/orders/${id}`)
+        .then((res) => {
+          setSeller(res.data);
+          setSaleStatus(res.data.status);
+          setPedido(res.data.products);
+        }).catch((err) => err);
     };
-    const fetchOrderDetail = async (token, value) => {
-      const url = `http://www.localhost:3001/customer/orders/${value}`;
-      const header = { headers: { Authorization: `${token}` } };
-      const { data } = await axios.get(url, header);
-      const { products, saleDate, status } = data;
-      const handleOrder = () => {
-        const newOrder = [];
-        if (products) {
-          products.forEach((el) => {
-            const { salesProducts: { quantity }, price, ...remaingInfo } = el;
-            const subTotal = (quantity * price);
-            newOrder.push({ quantity, subTotal, price, ...remaingInfo });
-          });
-        }
-        return newOrder;
-      };
-      setOrder(handleOrder());
-      setDate(saleDate);
-      setSaleStatus(status);
-    };
-    const token = getUserInfo();
-    fetchOrderDetail(token, id);
-    if (order.length > 0) setLoading(false);
-  }, [id, history, userToken, order]);
+    getPedidos();
+  }, [id, setPedido]);
+
+  const handleSaleDate = (value) => {
+    if (value) {
+      const newDate = value.split('-');
+      const day = newDate[2].split('T');
+      const mounth = newDate[1];
+      const year = newDate[0];
+      return `${day[0]}/${mounth}/${year}`;
+    }
+  };
 
   useEffect(() => {
     const verifySaleStatus = (value) => {
@@ -62,17 +53,6 @@ export default function SellOrderDetails() {
     };
     verifySaleStatus(saleStatus);
   }, [saleStatus]);
-
-  const handleSaleDate = (value) => {
-    if (value) {
-      const newDate = value.split('-');
-      const day = newDate[2].split('T');
-      const mounth = newDate[1];
-      const year = newDate[0];
-
-      return `${day[0]}/${mounth}/${year}`;
-    }
-  };
 
   const handleOnClick = async (statusToUpdate) => {
     const url = `http://localhost:3001/customer/orders/${id}`;
@@ -85,19 +65,18 @@ export default function SellOrderDetails() {
   return (
     <div>
       <SellerHeader />
-      {loading && <span>Carregando...</span>}
       <table>
         <thead>
           <tr>
             <th
               data-testid={ `${dataTest}-order-id` }
             >
-              {`Pedido: ${state}`}
+              {`Pedido: ${seller.id}`}
             </th>
             <th
               data-testid={ `${dataTest}-order-date` }
             >
-              {handleSaleDate(date)}
+              {handleSaleDate(seller.saleDate)}
             </th>
             <th
               data-testid={ `${dataTest}-delivery-status` }
@@ -125,11 +104,10 @@ export default function SellOrderDetails() {
         SAIU PARA ENTREGA
 
       </button>
-      {!loading
-      && <Table
-        isButtonNeeded={ false }
+      <Table
+        isPage="seller"
         dataTest="seller_order_details"
-      />}
+      />
     </div>
   );
 }
