@@ -26,6 +26,8 @@ export function AuthProvider({ children }) {
   const [buttonAdminCreateDisable, setButtonAdminCreateDisable] = useState(true);
   const [error, setErro] = useState(false);
   const [errorCreateAdmin, setErrorCreateAdmin] = useState(false);
+  const [errroRegister, setErrorRegister] = useState(false);
+  const [errroRegisterMessage, setErrorRegisterMessage] = useState('');
   const [messageErrorAdminCreate, setMessageErrorAdminCreate] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisable, setButtonDisable] = useState(true);
@@ -86,6 +88,8 @@ export function AuthProvider({ children }) {
     messageErrorAdminCreate,
     pedido,
     orderCustomer,
+    errroRegister,
+    errroRegisterMessage,
     setLogin,
     setErro,
     setToken,
@@ -103,6 +107,8 @@ export function AuthProvider({ children }) {
     setMessageErrorAdminCreate,
     setPedido,
     setOrderCustomer,
+    setErrorRegister,
+    setErrorRegisterMessage,
   }), [
     pedido,
     login,
@@ -121,6 +127,8 @@ export function AuthProvider({ children }) {
     errorCreateAdmin,
     messageErrorAdminCreate,
     orderCustomer,
+    errroRegister,
+    errroRegisterMessage,
   ]);
 
   useEffect(() => {

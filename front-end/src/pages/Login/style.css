@@ -15,7 +15,6 @@
   border-radius: 6px;
   display: flex;
   flex-direction: column;
-  height: 550px;
   justify-content: center;
   width: 500px;
 }
@@ -50,19 +49,18 @@
 }
 
 .form-login label img {
-  background: rgb(235, 226, 226);
-  border: 1px solid rgb(211, 204, 204);
+  background: rgb(245, 229, 229);
   border-radius: 4px;
-  height: 40px;
-  padding: 8px;
+  height: 45px;
+  padding: 12px;
   width: 50px;
 }
 
 .form-login label input {
   border: 1px solid #e6e6f0;
   border-radius: 4px;
-  height: 40px;
-  outline: none;
+  height: 45px;
+  outline: 1px solid rgb(252, 249, 249);
   padding-left: 15px;
   width: 100%;
 }
@@ -82,11 +80,11 @@
 }
 
 .btn-login button:first-child {
-  background: #d30404ad;
+  background: #166fe5;
   border: none;
   border-radius: 4px;
   color: white;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -97,7 +95,7 @@
 }
 
 .btn-login button:first-child:hover {
-  background: rgb(248, 75, 75);
+  background: #3467aa;
 }
 
 .btn-login button:last-child:hover {

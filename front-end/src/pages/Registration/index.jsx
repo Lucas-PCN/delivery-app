@@ -1,17 +1,25 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import LogoImage from '../../images/logo.png';
+import IconEmail from '../../images/icons/mail.svg';
+import IconUser from '../../images/icons/user.svg';
+import IconLok from '../../images/icons/lock.svg';
 
 import './style.css';
 import { AuthContext } from '../../providers/Auth';
 
 function Registration() {
   const history = useHistory();
-  const [errorRegistration, setErrorRegistration] = useState('');
+
   const {
     register,
-    setRegister, setErro, error } = useContext(AuthContext);
+    setRegister,
+    errroRegister,
+    setErrorRegister,
+    errroRegisterMessage,
+    setErrorRegisterMessage,
+  } = useContext(AuthContext);
 
   const validationRegister = () => {
     const MIN_PASSWORD = 5;
@@ -37,8 +45,8 @@ function Registration() {
         history.push('/customer/products');
       })
       .catch((err) => {
-        setErro(true);
-        setErrorRegistration(err.message);
+        setErrorRegister(true);
+        setErrorRegisterMessage(err.message);
         // document.location.reload();
       });
   };
@@ -46,16 +54,19 @@ function Registration() {
   return (
     <div className="registration-container">
       <div className="registration-content">
-        <form className="form-register">
-          <div className="info">
-            <img src={ LogoImage } alt="LogoImage" />
+        <div className="info">
+          <img src={ LogoImage } alt="LogoImage" />
+          <div className="form-description">
+            <h2>Faça o seu cadastro de forma rápida e fácil.</h2>
           </div>
+        </div>
+        <form className="form-register">
           <label htmlFor="nome">
-            <p>Nome completo</p>
+            <img src={ IconUser } alt="Icon User" />
             <input
               name="nome"
               type="text"
-              placeholder="Seu nome"
+              placeholder="Nome completo"
               onChange={
                 ({ target }) => setRegister({ ...register, name: target.value })
               }
@@ -64,7 +75,7 @@ function Registration() {
             />
           </label>
           <label htmlFor="email">
-            <p>Email</p>
+            <img src={ IconEmail } alt="Icon Email" />
             <input
               name="email"
               type="text"
@@ -77,7 +88,7 @@ function Registration() {
             />
           </label>
           <label htmlFor="email">
-            <p>Senha</p>
+            <img src={ IconLok } alt="Icon Password" />
             <input
               name="senha"
               type="password"
@@ -90,10 +101,9 @@ function Registration() {
               data-testid="common_register__input-password"
             />
           </label>
-          <div className="btn-registration">
+          <div className="btn-create">
             <button
               type="submit"
-              // className="btn-registration"
               disabled={ validationRegister() }
               onClick={ handleClick }
               data-testid="common_register__button-register"
@@ -102,14 +112,14 @@ function Registration() {
             </button>
           </div>
         </form>
-        <div
-          data-testid="common_register__element-invalid_register"
-          className={ error ? 'span-error' : 'span-error-disable' }
-        >
-          <h4>
-            {errorRegistration}
-          </h4>
-        </div>
+      </div>
+      <div
+        data-testid="common_register__element-invalid_register"
+        className={ errroRegister ? 'span-error' : 'span-error-disable' }
+      >
+        <h4>
+          {errroRegisterMessage}
+        </h4>
       </div>
     </div>
   );

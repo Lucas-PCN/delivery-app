@@ -5,7 +5,7 @@ import LogoImage from '../../images/logo.png';
 import { AuthContext } from '../../providers/Auth';
 
 import IconEmail from '../../images/icons/mail.svg';
-import IconUser from '../../images/icons/user.svg';
+import IconLock from '../../images/icons/lock.svg';
 
 import './style.css';
 
@@ -61,6 +61,9 @@ function Login() {
       <div className="login-content">
         <div className="info">
           <img src={ LogoImage } alt="LogoImage" />
+          <div className="form-description">
+            <h2>Faça seu login para começar uma experiência incrível</h2>
+          </div>
         </div>
         <div className="form-login">
           <label htmlFor="email">
@@ -74,7 +77,7 @@ function Login() {
             />
           </label>
           <label htmlFor="email">
-            <img src={ IconUser } alt="Icon User" />
+            <img src={ IconLock } alt="Icon Password" />
             <input
               name="senha"
               type="password"

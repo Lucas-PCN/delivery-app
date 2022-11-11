@@ -3,6 +3,8 @@ import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../providers/Auth';
 import { updateCarsRemove } from '../../ultils/localStorage';
 
+import './style.css';
+
 function Table({ isPage, dataTest }) {
   const { pedido, orderCustomer } = useContext(AuthContext);
 
@@ -42,9 +44,9 @@ function Table({ isPage, dataTest }) {
     };
     totalPrice();
   }, [isPage, products]);
-
+  console.log(products);
   return (
-    <section>
+    <section className="table-container">
       <table>
         <thead>
           <tr>
@@ -53,7 +55,7 @@ function Table({ isPage, dataTest }) {
             <th>Quantidade</th>
             <th>Valor Unitário</th>
             <th>Sub-total</th>
-            {isPage && <th>Remover Item</th>}
+            {(isPage === 'checkout') && <th>Remover Item</th>}
           </tr>
         </thead>
         <tbody>
@@ -72,7 +74,7 @@ function Table({ isPage, dataTest }) {
               <td
                 data-testid={ `${prefix}element-order-table-quantity-${index}` }
               >
-                { item.quantity }
+                { (isPage === 'checkout') ? item.quantity : item.salesProducts.quantity }
               </td>
               <td
                 data-testid={ `${prefix}element-order-table-unit-price-${index}` }
@@ -90,7 +92,7 @@ function Table({ isPage, dataTest }) {
                     .toFixed(2).replace('.', ',')
                 }`}
               </td>
-              {isPage && (
+              {(isPage === 'checkout') && (
                 <td
                   data-testid={ `${prefix}element-order-table-remove-${index}` }
                 >
@@ -105,11 +107,13 @@ function Table({ isPage, dataTest }) {
             </tr>))}
         </tbody>
       </table>
-      <div
-        data-testid={ `${dataTest}__element-order-total-price` }
-        className="total"
-      >
-        {`Total: R$${totalValues}`}
+      <div className="total-container">
+        <div
+          data-testid={ `${dataTest}__element-order-total-price` }
+          className="total"
+        >
+          {`Total: R$${totalValues}`}
+        </div>
       </div>
     </section>
   );
