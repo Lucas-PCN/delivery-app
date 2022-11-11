@@ -5,6 +5,8 @@ import Header from '../../components/Header';
 import Table from '../../components/Table';
 import { AuthContext } from '../../providers/Auth';
 
+import './style.css';
+
 export default function OrderDetails() {
   const { setOrderCustomer } = useContext(AuthContext);
   const [seller, setSeller] = useState([]);
@@ -85,43 +87,41 @@ export default function OrderDetails() {
   };
 
   return (
-    <div>
+    <div className="order-customer-container">
       <Header />
-      <table>
-        <thead>
-          <tr>
-            <th
-              data-testid={ `${dataTest}-order-id` }
-            >
+      <div className="order-customer-content">
+        <div className="order-customer-info">
+          <div className="info-header">
+            <span data-testid={ `${dataTest}-order-id` }>
               {`Pedido: ${seller.sellerId}`}
-            </th>
-            <th
-              data-testid={ `${dataTest}-seller-name` }
-            >
-              {`${sellerName}`}
-            </th>
-            <th
-              data-testid={ `${dataTest}-order-date` }
-            >
-              {handleSaleDate(seller.saleDate)}
-            </th>
-            <th
-              data-testid={ `${dataTest}-delivery-status-${id}` }
-            >
+            </span>
+            <span data-testid={ `${dataTest}-delivery-status-${id}` }>
               {saleStatus}
-            </th>
-          </tr>
-        </thead>
-      </table>
-      <button
-        data-testid="customer_order_details__button-delivery-check"
-        type="button"
-        onClick={ handleOnClick }
-        disabled={ deliveryIsDisabled }
-      >
-        MARCAR COMO ENTREGUE
-      </button>
-      <Table isPage="customer" dataTest="customer_order_details" />
+            </span>
+
+          </div>
+
+          <div className="info-footer">
+            <span data-testid={ `${dataTest}-seller-name` }>
+              {`${sellerName}`}
+            </span>
+            <span data-testid={ `${dataTest}-order-date` }>
+              {handleSaleDate(seller.saleDate)}
+            </span>
+
+            <button
+              data-testid="customer_order_details__button-delivery-check"
+              type="button"
+              onClick={ handleOnClick }
+              disabled={ deliveryIsDisabled }
+            >
+              MARCAR COMO ENTREGUE
+            </button>
+          </div>
+
+        </div>
+        <Table isPage="customer" dataTest="customer_order_details" />
+      </div>
     </div>
   );
 }
