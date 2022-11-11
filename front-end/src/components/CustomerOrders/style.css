@@ -1,0 +1,22 @@
+.card-customer {
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  justify-content: space-between;
+  padding: 20px;
+  transition: cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition-duration: 2s;
+  width: 100%;
+}
+
+.card-customer span {
+  font-size: 18px;
+}
+
+.card-customer:hover {
+  background: #c8c8ff;
+}
+
