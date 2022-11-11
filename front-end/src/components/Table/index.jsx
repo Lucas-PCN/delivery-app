@@ -44,7 +44,7 @@ function Table({ isPage, dataTest }) {
   }, [isPage, products]);
 
   return (
-    <section>
+    <section className="table-container">
       <table>
         <thead>
           <tr>
@@ -53,7 +53,7 @@ function Table({ isPage, dataTest }) {
             <th>Quantidade</th>
             <th>Valor Unitário</th>
             <th>Sub-total</th>
-            {isPage && <th>Remover Item</th>}
+            {(isPage === 'checkout') && <th>Remover Item</th>}
           </tr>
         </thead>
         <tbody>
