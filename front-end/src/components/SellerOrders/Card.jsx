@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import './style.css';
+
 export default function Card({
   saleId,
   order,
@@ -37,35 +39,30 @@ export default function Card({
   return (
     <div
       type="button"
+      className="card"
       onClick={ () => onClick(saleId) }
       aria-hidden="true"
       data-testid={ `seller_orders__element-order-id-${saleId}` }
     >
-      <section>
+      <div className="card-header">
         <span data-testid={ `seller_orders__element-order-id-${order}` }>
           {`Pedido: ${order}`}
         </span>
-      </section>
-      <section>
         <span data-testid={ `seller_orders__element-delivery-status-${order}` }>
           {status}
         </span>
-      </section>
-      <section>
+      </div>
+      <div className="card-footer">
         <span data-testid={ `seller_orders__element-order-date-${order}` }>
           {handleSaleDate(saleDate)}
         </span>
-      </section>
-      <section>
         <span data-testid={ `seller_orders__element-card-price-${order}` }>
           {changeTotalPrice(totalPrice)}
         </span>
-      </section>
-      <section>
         <span data-testid={ `seller_orders__element-card-address-${order}` }>
           { `${deliveryAddress}, ${deliveryNumber}`}
         </span>
-      </section>
+      </div>
     </div>
   );
 }
