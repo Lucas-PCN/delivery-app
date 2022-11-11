@@ -4,6 +4,8 @@ import axios from 'axios';
 import Header from '../../components/Header';
 import Card from '../../components/CustomerOrders/Card';
 
+import './style.css';
+
 function CustomerOrders() {
   const [customerSales, setCustomerSales] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,16 +39,18 @@ function CustomerOrders() {
     <div className="sales-container">
       { loading && <span>Loading...</span>}
       { !loading && <Header />}
-      { !loading && customerSales.map((el, index) => (
-        <Card
-          key={ el.id }
-          saleId={ el.id }
-          order={ `${index + 1}` }
-          status={ el.status }
-          saleDate={ el.saleDate }
-          totalPrice={ el.totalPrice }
-        />
-      ))}
+      <div className="card-sale-content">
+        { !loading && customerSales.map((el, index) => (
+          <Card
+            key={ el.id }
+            saleId={ el.id }
+            order={ `${index + 1}` }
+            status={ el.status }
+            saleDate={ el.saleDate }
+            totalPrice={ el.totalPrice }
+          />
+        ))}
+      </div>
     </div>
   );
 }
